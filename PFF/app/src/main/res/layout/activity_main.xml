@@ -15,7 +15,6 @@
         android:layout_marginStart="6dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/average_starting_salary_for_an_it_professional_in_us_is_100_000"
         android:textSize="14sp"
         android:textStyle="normal|italic"
         app:layout_constraintStart_toStartOf="parent"
