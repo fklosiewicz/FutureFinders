@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="101dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/logo"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="600dp"
+        android:layout_height="300dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="82dp">
+
+        <TableLayout
+            android:layout_width="600dp"
+            android:layout_height="300dp">
+
+            <TableRow
+                android:layout_width="600dp"
+                android:layout_height="150dp">
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="120dp"
+                    android:layout_height="145dp"
+                    android:scaleType="fitCenter"
+
+                    android:adjustViewBounds="false"
+                    android:text="Annual Median Wage" />
+
+
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="120dp"
+                    android:layout_height="145dp"
+                    android:scaleType="fitCenter"
+
+                    android:adjustViewBounds="false"
+                    android:text="Happiness Ranking" />
+
+
+                <CheckBox
+                    android:id="@+id/checkBox3"
+
+                    android:layout_width="120dp"
+                    android:layout_height="145dp"
+                    android:scaleType="fitCenter"
+
+                    android:adjustViewBounds="false"
+                    android:text="State Income Tax Rate"/>
+
+
+                <CheckBox
+                    android:id="@+id/checkBox4"
+                    android:layout_width="120dp"
+                    android:layout_height="145dp"
+                    android:scaleType="fitCenter"
+
+                    android:adjustViewBounds="false"
+                    android:text="State Income Tax Bracket"/>
+<!--                    android:button="@drawable/tax_bracket" /> -->
+
+                <CheckBox
+                    android:id="@+id/checkBox5"
+                    android:layout_width="111dp"
+                    android:layout_height="145dp"
+                    android:adjustViewBounds="false"
+
+                    android:scaleType="fitCenter"
+                    android:text="Entertainment, Recreation,
+ and Nightlife Ranking" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="670dp"
+                android:layout_height="150dp">
+
+                <CheckBox
+                    android:id="@+id/checkBox6"
+                    android:layout_width="120dp"
+                    android:layout_height="145dp"
+                    android:scaleType="fitCenter"
+
+                    android:adjustViewBounds="false"
+                    android:text="Healthcare Ranking" />
+
+
+                <CheckBox
+                    android:id="@+id/checkBox7"
+                    android:layout_width="120dp"
+                    android:layout_height="145dp"
+                    android:scaleType="fitCenter"
+
+                    android:adjustViewBounds="false"
+                    android:text="Air and Water Quality Rankings" />
+
+
+                <CheckBox
+                    android:id="@+id/checkBox8"
+
+                    android:layout_width="120dp"
+                    android:layout_height="145dp"
+                    android:scaleType="fitCenter"
+
+                    android:adjustViewBounds="false"
+                    android:text="Education Raking"/>
+
+
+                <CheckBox
+                    android:id="@+id/checkBox9"
+                    android:layout_width="120dp"
+                    android:layout_height="145dp"
+                    android:scaleType="fitCenter"
+
+                    android:adjustViewBounds="false"
+                    android:text="Cost of Living Index"/>
+
+
+                <CheckBox
+                    android:id="@+id/checkBox10"
+                    android:layout_width="120dp"
+                    android:layout_height="145dp"
+                    android:scaleType="fitCenter"
+
+                    android:adjustViewBounds="false"
+                    android:text="Cost of Living Ranking"/>
+
+            </TableRow>
+
+        </TableLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to States"
+        tools:layout_editor_absoluteX="182dp"
+        tools:layout_editor_absoluteY="11dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="See Results"
+        tools:layout_editor_absoluteX="433dp"
+        tools:layout_editor_absoluteY="11dp"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
