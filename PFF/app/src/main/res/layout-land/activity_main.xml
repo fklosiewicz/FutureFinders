@@ -22,6 +22,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/Next"
+        android:layout_width="186dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="324dp"
+        android:layout_marginEnd="36dp"
+        android:backgroundTint="@color/purp"
+        android:text="Next: Indicators"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/LA"
         android:layout_width="48dp"
         android:layout_height="40dp"
@@ -576,7 +588,8 @@
         android:layout_height="80dp"
         app:srcCompat="@drawable/logo"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/Login"
@@ -589,4 +602,6 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
