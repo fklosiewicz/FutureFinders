@@ -31,7 +31,6 @@ public class RegistrationActivity<color> extends AppCompatActivity {
         textPassword = (EditText) findViewById(R.id.textPassword);
         Bundle bundle = getIntent().getExtras();
         users = (ArrayList<User>)bundle.getSerializable("Users");
-
     }
 
     public void createUser(View view) {

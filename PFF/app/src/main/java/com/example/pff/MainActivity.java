@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import com.example.pff.design.User;
@@ -20,6 +21,7 @@ public class MainActivity<color> extends AppCompatActivity {
 
     Button Register;
     public ArrayList<User> users;
+    public ArrayList<String> states;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,5 +73,23 @@ public class MainActivity<color> extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // for later: add cap to number of states that can be added to list based on if logged in or not
+    public void selectState(View view) {
+        Button b = (Button)view;
+        if(!states.contains(b.getText())) {
+            states.add((String)b.getText());
+        }
+        else {
+            states.remove(b.getText());
+        }
+    }
+
+    public void indicators(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("States", states);
+        Intent intent = new Intent(this, IndicatorActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 
 }
