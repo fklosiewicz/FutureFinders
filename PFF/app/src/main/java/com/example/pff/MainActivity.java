@@ -2,11 +2,17 @@ package com.example.pff;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
 import com.example.pff.design.User;
 
 import java.io.File;
@@ -92,4 +98,61 @@ public class MainActivity<color> extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void login(View view) {
+        String p = this.getApplicationInfo().dataDir + "/appdata.dat";
+        try {
+            FileInputStream fis = new FileInputStream(p);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            users = (ArrayList<User>) ois.readObject();
+            fis.close();
+            ois.close();
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Please enter your username and password:");
+
+        final EditText login = new EditText(this);
+        final EditText pass = new EditText(this);
+
+        login.setInputType(InputType.TYPE_CLASS_TEXT);
+        pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        LinearLayout lay = new LinearLayout(this);
+        lay.setOrientation(LinearLayout.VERTICAL);
+        lay.addView(login);
+        lay.addView(pass);
+        builder.setView(lay);
+        final boolean[] success = {false};
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                for (User t : users) {
+                    if(login.getText().toString().equals(t.username) && pass.getText().toString().equals(t.password)) {
+                            AlertDialog.Builder no_delete = new AlertDialog.Builder(view.getContext());
+                            no_delete.setMessage("Successful Login! (logic not fully implemented)").setPositiveButton("Okay", null);
+                            no_delete.show();
+                            success[0] = true;
+                            return;
+                    }
+                }
+                if(success[0] == false) {
+                    AlertDialog.Builder no_delete = new AlertDialog.Builder(view.getContext());
+                    no_delete.setMessage("This user does not exist.").setPositiveButton("Okay", null);
+                    no_delete.show();
+                    return;
+                }
+            }
+        });
+
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
 }
