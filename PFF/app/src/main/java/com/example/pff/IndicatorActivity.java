@@ -1,6 +1,9 @@
 package com.example.pff;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -18,7 +21,9 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.indicators);
 
-        states = savedInstanceState.getStringArrayList("States");
+        states = getIntent().getExtras().getStringArrayList("States");
+        indicators = getIntent().getExtras().getStringArrayList("Indicators");
+
     }
 
     // for later: add cap to number of indicators that can be added to list based on if logged in or not
@@ -30,6 +35,32 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         else {
             indicators.remove(c.getText());
         }
+    }
+
+    public void results(View view) {
+        if(states.isEmpty()) {
+            AlertDialog.Builder noStates = new AlertDialog.Builder(view.getContext());
+            noStates.setMessage("Please select at least one state").setPositiveButton("Okay", null);
+            noStates.show();
+        }
+        else if(indicators.isEmpty()) {
+            AlertDialog.Builder noStates = new AlertDialog.Builder(view.getContext());
+            noStates.setMessage("Please select at least one indicator").setPositiveButton("Okay", null);
+            noStates.show();
+        }
+        else {
+            Intent intent = new Intent(this, ResultsActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    public void backToStates(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("States", states);
+        bundle.putStringArrayList("Indicators", indicators);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 }

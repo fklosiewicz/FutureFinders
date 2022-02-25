@@ -23,6 +23,14 @@
             android:name=".RegistrationActivity"
             android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".IndicatorActivity"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ResultsActivity"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".IndicatorActivity" />
     </application>
 
 </manifest>

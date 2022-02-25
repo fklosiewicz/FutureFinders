@@ -28,12 +28,23 @@ public class MainActivity<color> extends AppCompatActivity {
     Button Register;
     public ArrayList<User> users;
     public ArrayList<String> states;
+    public ArrayList<String> indicators;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        if(intent.hasExtra("States")) {
+            states = intent.getExtras().getStringArrayList("States");
+            indicators = intent.getExtras().getStringArrayList("Indicators");
+        }
+        else {
+            states = new ArrayList<String>();
+            indicators = new ArrayList<String>();
+        }
 
         File data = new File(p);
         boolean de = true;
@@ -93,6 +104,7 @@ public class MainActivity<color> extends AppCompatActivity {
     public void indicators(View view) {
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("States", states);
+        bundle.putStringArrayList("Indicators", indicators);
         Intent intent = new Intent(this, IndicatorActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
