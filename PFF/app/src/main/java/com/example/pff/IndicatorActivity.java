@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TableRow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +17,19 @@ public class IndicatorActivity<color> extends AppCompatActivity {
 
     public ArrayList<String> states;
     public ArrayList<String> indicators;
+    private ImageView imageView;
+    private TableRow row1;
+    private TableRow row2;
+    private CheckBox wage;
+    private CheckBox happy;
+    private CheckBox tax_rate;
+    private CheckBox tax_bracket;
+    private CheckBox entertainment;
+    private CheckBox healthcare;
+    private CheckBox air_water;
+    private CheckBox education;
+    private CheckBox living_index;
+    private CheckBox living_ranking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
