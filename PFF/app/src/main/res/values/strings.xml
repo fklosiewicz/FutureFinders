@@ -3,4 +3,18 @@
     <string name="average_starting_salary_for_an_it_professional_in_us_is_100_000">Average starting salary for an IT professional
 
         in US is $100,000</string>
+
+    <string name="wage">Annual Median Wage</string>
+    <string name="happiness">Happiness Ranking</string>
+    <string name="state_tax_rate">State Income Tax Rate</string>
+    <string name="state_tax_bracket">State Income Tax Bracket</string>
+    <string name="entertainment">Entertainment, Recreation, and Nightlife Ranking</string>
+    <string name="healthcare">Healthcare Ranking</string>
+    <string name="air_and_water">Air and Water Quality</string>
+    <string name="education">Education Ranking</string>
+    <string name="living_index">Cost of Living Index</string>
+    <string name="living_rank">Cost of Living Ranking</string>
+    <string name="back_to_state">Back to States</string>
+    <string name="see_results">See Results</string>
+
 </resources>
