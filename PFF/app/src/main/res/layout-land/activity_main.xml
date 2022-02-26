@@ -13,14 +13,13 @@
         android:id="@+id/Register"
         android:layout_width="111dp"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="3dp"
         android:backgroundTint="@color/purp"
         android:onClick="register"
         android:text="Register"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/ME" />
 
     <Button
         android:id="@+id/Next"
@@ -59,7 +58,6 @@
         android:id="@+id/TX"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="3dp"
         android:onClick="selectState"
         android:text="TX"
         android:textSize="9sp"
@@ -445,7 +443,6 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="3dp"
-        android:layout_marginTop="-10dp"
         android:onClick="selectState"
         android:text="ME"
         android:textSize="9sp"
@@ -501,7 +498,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="3dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="4dp"
         android:onClick="selectState"
         android:text="AK"
         android:textSize="9sp"
@@ -568,7 +565,6 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="3dp"
-        android:layout_marginTop="-10dp"
         android:onClick="selectState"
         android:text="WI"
         android:textSize="9sp"
@@ -612,14 +608,13 @@
         android:id="@+id/Login"
         android:layout_width="82dp"
         android:layout_height="48dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="3dp"
         android:backgroundTint="@color/purp"
         android:onClick="login"
         android:text="Login"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/Register" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

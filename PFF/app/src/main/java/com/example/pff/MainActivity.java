@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -26,12 +27,16 @@ import java.util.ArrayList;
 public class MainActivity<color> extends AppCompatActivity {
 
     Button Register;
-    public ArrayList<User> users;
-    public ArrayList<String> states;
-    public ArrayList<String> indicators;
+    public ArrayList<User> users;//List of Users
+    public ArrayList<String> states;//List of selected states
+    public ArrayList<String> indicators;//List of selected indicators
+    public User activeUser;//Logged in member
+    public final int CAP_GUEST = 2;//State cap for guest
+    public final int CAP_MEMBER = 3;//State cap for member
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        activeUser = null;//Start main with no active user
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -93,11 +98,44 @@ public class MainActivity<color> extends AppCompatActivity {
     // for later: add cap to number of states that can be added to list based on if logged in or not
     public void selectState(View view) {
         Button b = (Button)view;
-        if(!states.contains(b.getText())) {
-            states.add((String)b.getText());
-        }
-        else {
-            states.remove(b.getText());
+        if(activeUser==null){//If no User is logged in
+            if(!states.contains(b.getText())) {
+                if(!(states.size()<CAP_GUEST)){//If the cap is reached, prompt user to register
+                    AlertDialog.Builder cap_reached = new AlertDialog.Builder(this);
+                    cap_reached.setMessage("Maximum " + CAP_GUEST + " states for guest.\nTo " +
+                            "select up to "+ CAP_MEMBER + " states, " +
+                            "please register.").setPositiveButton("Okay", null);
+                    cap_reached.show();
+                    return;
+                }
+                states.add((String)b.getText());
+                //Change background color to indicate selected
+                b.setBackgroundColor(Color.parseColor("#800080"));
+            }
+            else {
+                states.remove(b.getText());
+                //Change background color back to default to indicate deselected
+                b.setBackgroundColor(Color.parseColor("#FF6200EE"));
+            }
+        }else{//If User is logged in
+            if(!states.contains(b.getText())) {
+                if(!(states.size()<CAP_MEMBER)){//If the cap is reached, extort
+                    AlertDialog.Builder cap_reached = new AlertDialog.Builder(this);
+                    cap_reached.setMessage("Maximum " + CAP_MEMBER + " states for members.\nTo " +
+                            "select more states, send 2 BTC to 0xFUTURE_FINDERS, " +
+                            "and delete app.").setPositiveButton("Okay", null);
+                    cap_reached.show();
+                    return;
+                }
+                states.add((String)b.getText());
+                //Change background color to indicate selected
+                b.setBackgroundColor(Color.parseColor("#800080"));
+            }
+            else {
+                states.remove(b.getText());
+                //Change background color back to default to indicate deselected
+                b.setBackgroundColor(Color.parseColor("#FF6200EE"));
+            }
         }
     }
 
@@ -146,6 +184,7 @@ public class MainActivity<color> extends AppCompatActivity {
                             AlertDialog.Builder no_delete = new AlertDialog.Builder(view.getContext());
                             no_delete.setMessage("Successful Login! (logic not fully implemented)").setPositiveButton("Okay", null);
                             no_delete.show();
+                            activeUser = t;//Capture the logged in user
                             success[0] = true;
                             return;
                     }
@@ -158,7 +197,6 @@ public class MainActivity<color> extends AppCompatActivity {
                 }
             }
         });
-
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
