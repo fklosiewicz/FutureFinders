@@ -266,6 +266,7 @@
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/purp"
         android:text="Back"
+        android:onClick="back"
         app:layout_constraintEnd_toStartOf="@+id/textView25"
         app:layout_constraintHorizontal_bias="0.287"
         app:layout_constraintStart_toStartOf="parent"
