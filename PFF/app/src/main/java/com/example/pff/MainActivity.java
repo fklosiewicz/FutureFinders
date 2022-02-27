@@ -182,7 +182,7 @@ public class MainActivity<color> extends AppCompatActivity {
                 for (User t : users) {
                     if(login.getText().toString().equals(t.username) && pass.getText().toString().equals(t.password)) {
                             AlertDialog.Builder no_delete = new AlertDialog.Builder(view.getContext());
-                            no_delete.setMessage("Successful Login! (logic not fully implemented)").setPositiveButton("Okay", null);
+                            no_delete.setMessage("Successful Login!").setPositiveButton("Okay", null);
                             no_delete.show();
                             activeUser = t;//Capture the logged in user
                             success[0] = true;
