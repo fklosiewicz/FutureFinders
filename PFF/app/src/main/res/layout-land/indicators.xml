@@ -19,8 +19,8 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="605dp"
-        android:layout_height="305dp"
+        android:layout_width="600dp"
+        android:layout_height="290dp"
         android:layout_marginStart="75dp"
         android:layout_marginEnd="65dp"
         android:layout_marginTop="75dp"
@@ -31,7 +31,7 @@
         tools:ignore="MissingConstraints">
 
         <TableLayout
-            android:layout_width="700dp"
+            android:layout_width="600dp"
             android:layout_height="303dp">
 
             <TableRow
@@ -44,14 +44,17 @@
                     android:id="@+id/wage"
                     android:layout_width="120dp"
                     android:layout_height="145dp"
-                    android:adjustViewBounds="false"
+                    android:adjustViewBounds="true"
                     android:onClick="checked"
 
                     android:scaleType="fitCenter"
                     android:text="@string/wage"
-                    android:background="@drawable/salary"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:background="@drawable/salary_1"
+                    android:textColor="@color/antique_white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:alpha="0.7"
+                    android:layout_gravity="fill"/>
 
 
 
@@ -64,14 +67,16 @@
 
                     android:scaleType="fitCenter"
                     android:text="@string/happiness"
-                    android:background="@drawable/happiness"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:background="@drawable/happiness_1"
+                    android:textColor="@color/antique_white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:alpha="0.8"
+                    android:layout_gravity="fill"/>
 
 
                 <CheckBox
                     android:id="@+id/tax_rate"
-
                     android:layout_width="120dp"
                     android:layout_height="145dp"
                     android:adjustViewBounds="false"
@@ -79,9 +84,12 @@
 
                     android:scaleType="fitCenter"
                     android:text="@string/state_tax_rate"
-                    android:background="@drawable/tax_rate_1"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:background="@drawable/tax_rate_3"
+                    android:textColor="@color/antique_white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:alpha="0.7"
+                    android:layout_gravity="fill"/>
 
                 <CheckBox
                     android:id="@+id/tax_bracket"
@@ -92,9 +100,12 @@
 
                     android:scaleType="fitCenter"
                     android:text="@string/state_tax_bracket"
-                    android:background="@drawable/tax_bracket"
-                    android:textColor="@color/teal_200"
-                    android:textSize="18sp"/>
+                    android:background="@drawable/tax_bracket_3"
+                    android:textColor="@color/antique_white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:alpha="0.8"
+                    android:layout_gravity="fill"/>
 
                 <CheckBox
                     android:id="@+id/entertainment"
@@ -105,9 +116,12 @@
 
                     android:scaleType="fitCenter"
                     android:text="@string/entertainment"
-                    android:background="@drawable/recreation"
-                    android:textColor="@color/teal_200"
-                    android:textSize="15sp"/>
+                    android:background="@drawable/entertainment_3"
+                    android:textColor="@color/antique_white"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:alpha="0.7"
+                    android:layout_gravity="fill"/>
 
             </TableRow>
 
@@ -125,9 +139,12 @@
 
                     android:scaleType="fitCenter"
                     android:text="@string/healthcare"
-                    android:background="@drawable/health_care"
+                    android:background="@drawable/health_care_1"
                     android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:alpha="0.7"
+                    android:layout_gravity="fill"/>
 
 
                 <CheckBox
@@ -140,8 +157,11 @@
                     android:scaleType="fitCenter"
                     android:text="@string/air_and_water"
                     android:background="@drawable/air_water"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:textColor="@color/antique_white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:alpha="0.9"
+                    android:layout_gravity="fill"/>
 
                 <CheckBox
                     android:id="@+id/education"
@@ -153,9 +173,12 @@
 
                     android:scaleType="fitCenter"
                     android:text="@string/education"
-                    android:background="@drawable/education"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:background="@drawable/education_1"
+                    android:textColor="@color/antique_white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:alpha="0.9"
+                    android:layout_gravity="fill"/>
 
 
                 <CheckBox
@@ -167,9 +190,12 @@
 
                     android:scaleType="fitCenter"
                     android:text="@string/living_index"
-                    android:background="@drawable/cost_of_living_index"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:background="@drawable/cost_of_living_index_3"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:alpha="0.8"
+                    android:layout_gravity="fill"/>
 
 
                 <CheckBox
@@ -181,9 +207,12 @@
 
                     android:scaleType="fitCenter"
                     android:text="@string/living_rank"
-                    android:background="@drawable/cost_of_living_ranking_1"
+                    android:background="@drawable/cost_of_living_ranking_3"
                     android:textColor="@color/yellow"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:alpha="0.7"
+                    android:layout_gravity="fill"/>
 
             </TableRow>
 
