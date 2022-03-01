@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.pff.design.User;
 
@@ -72,7 +73,7 @@ public class MainActivity<color> extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        else if (de == true){
+        else if (de){
             try {
                 FileInputStream fis = new FileInputStream(p);
                 ObjectInputStream ois = new ObjectInputStream(fis);
@@ -146,6 +147,18 @@ public class MainActivity<color> extends AppCompatActivity {
         Intent intent = new Intent(this, IndicatorActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    public void logout(View view) {
+        if(activeUser != null) {
+            Toast.makeText(this, "User: " + activeUser.username + " successfully logged out!", Toast.LENGTH_LONG).show();
+            activeUser = null;
+            return;
+        }
+        else if(activeUser == null) {
+            Toast.makeText(this, "Not currently logged in.", Toast.LENGTH_LONG).show();
+            return;
+        }
     }
 
     public void login(View view) {
