@@ -2,10 +2,12 @@ package com.example.pff;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -26,6 +28,8 @@ import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity<color> extends AppCompatActivity {
@@ -40,12 +44,14 @@ public class MainActivity<color> extends AppCompatActivity {
 
 
     private static Connection connection;
-    public static final String url = "jdbc:mariadb://172.16.122.19:3306/future_finders";
+    private static final String URL = "jdbc:mysql://172.16.122.19:3306/future_finders";
+    private static final String USER = "finder";
+    private static final String PASS = "1234abcd";
 
     private static void openDatabaseConnection() throws SQLException {
         System.out.println("Connecting to the database...");
-        connection = DriverManager.getConnection(url, "finder", "1234abcd");
-        //System.out.println("Connection valid: " + connection.isValid(5));
+        connection = DriverManager.getConnection(URL, "finder", "1234abcd");
+        System.out.println("Connection valid: " + connection.isValid(5));
     }
 
     private static void closeDatabaseConnection() throws SQLException {
@@ -54,17 +60,21 @@ public class MainActivity<color> extends AppCompatActivity {
     }
 
     public void establishConnection(View view) {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    openDatabaseConnection();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+        new InfoAsyncTask().execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public class InfoAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        protected Map<String, String> doInBackground(Void... voids) {
+            Map<String, String> info = new HashMap<>();
+            System.out.println("Connecting to the database...");
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASS)) {
+                System.out.println("Connection valid: " + connection.isValid(5));
+            } catch (Exception e) {
+                Log.e("InfoAsyncTask", "Error reading information", e);
             }
-        });
-        thread.start();
+            return info;
+        }
     }
 
     @Override
