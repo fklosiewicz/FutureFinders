@@ -23,7 +23,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.UnknownHostException;
+import java.sql.*;
 import java.util.ArrayList;
+
 
 public class MainActivity<color> extends AppCompatActivity {
 
@@ -35,8 +38,39 @@ public class MainActivity<color> extends AppCompatActivity {
     public final int CAP_GUEST = 2;//State cap for guest
     public final int CAP_MEMBER = 3;//State cap for member
 
+
+    private static Connection connection;
+    public static final String url = "jdbc:mariadb://172.16.122.19:3306/future_finders";
+
+    private static void openDatabaseConnection() throws SQLException {
+        System.out.println("Connecting to the database...");
+        connection = DriverManager.getConnection(url, "finder", "1234abcd");
+        //System.out.println("Connection valid: " + connection.isValid(5));
+    }
+
+    private static void closeDatabaseConnection() throws SQLException {
+        System.out.println("Closing database connection...");
+        connection.close();
+    }
+
+    public void establishConnection(View view) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    openDatabaseConnection();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         activeUser = null;//Start main with no active user
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         super.onCreate(savedInstanceState);
