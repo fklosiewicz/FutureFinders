@@ -48,21 +48,6 @@ public class MainActivity<color> extends AppCompatActivity {
     private static final String USER = "finder";
     private static final String PASS = "1234abcd";
 
-    private static void openDatabaseConnection() throws SQLException {
-        System.out.println("Connecting to the database...");
-        connection = DriverManager.getConnection(URL, "finder", "1234abcd");
-        System.out.println("Connection valid: " + connection.isValid(5));
-    }
-
-    private static void closeDatabaseConnection() throws SQLException {
-        System.out.println("Closing database connection...");
-        connection.close();
-    }
-
-    public void establishConnection(View view) {
-        new InfoAsyncTask().execute();
-    }
-
     @SuppressLint("StaticFieldLeak")
     public class InfoAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
         protected Map<String, String> doInBackground(Void... voids) {
@@ -75,6 +60,21 @@ public class MainActivity<color> extends AppCompatActivity {
             }
             return info;
         }
+    }
+
+//    private static void openDatabaseConnection() throws SQLException {
+//        System.out.println("Connecting to the database...");
+//        connection = DriverManager.getConnection(URL, "finder", "1234abcd");
+//        System.out.println("Connection valid: " + connection.isValid(5));
+//    }
+//
+//    private static void closeDatabaseConnection() throws SQLException {
+//        System.out.println("Closing database connection...");
+//        connection.close();
+//    }
+
+    public void establishConnection(View view) {
+        new InfoAsyncTask().execute();
     }
 
     @Override
