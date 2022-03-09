@@ -2,10 +2,12 @@ package com.example.pff;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -23,7 +25,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.UnknownHostException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class MainActivity<color> extends AppCompatActivity {
 
@@ -35,8 +42,45 @@ public class MainActivity<color> extends AppCompatActivity {
     public final int CAP_GUEST = 2;//State cap for guest
     public final int CAP_MEMBER = 3;//State cap for member
 
+
+    private static Connection connection;
+    private static final String URL = "jdbc:mysql://172.16.122.19:3306/future_finders";
+    private static final String USER = "finder";
+    private static final String PASS = "1234abcd";
+
+    @SuppressLint("StaticFieldLeak")
+    public class InfoAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        protected Map<String, String> doInBackground(Void... voids) {
+            Map<String, String> info = new HashMap<>();
+            System.out.println("Connecting to the database...");
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASS)) {
+                System.out.println("Connection valid: " + connection.isValid(5));
+            } catch (Exception e) {
+                Log.e("InfoAsyncTask", "Error reading information", e);
+            }
+            return info;
+        }
+    }
+
+//    private static void openDatabaseConnection() throws SQLException {
+//        System.out.println("Connecting to the database...");
+//        connection = DriverManager.getConnection(URL, "finder", "1234abcd");
+//        System.out.println("Connection valid: " + connection.isValid(5));
+//    }
+//
+//    private static void closeDatabaseConnection() throws SQLException {
+//        System.out.println("Closing database connection...");
+//        connection.close();
+//    }
+
+    public void establishConnection(View view) {
+        new InfoAsyncTask().execute();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         activeUser = null;//Start main with no active user
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         super.onCreate(savedInstanceState);
