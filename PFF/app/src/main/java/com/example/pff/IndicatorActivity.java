@@ -64,7 +64,11 @@ public class IndicatorActivity<color> extends AppCompatActivity {
             noStates.show();
         }
         else {
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("States", states);
+            bundle.putStringArrayList("Indicators", indicators);
             Intent intent = new Intent(this, ResultsActivity.class);
+            intent.putExtras(bundle);
             startActivity(intent);
         }
     }
