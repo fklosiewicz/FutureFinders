@@ -33,6 +33,10 @@
             android:name=".ResultsActivity"
             android:screenOrientation="landscape"
             android:parentActivityName=".IndicatorActivity" />
+        <activity
+            android:name=".AccountActivity"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
