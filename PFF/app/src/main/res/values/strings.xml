@@ -16,5 +16,6 @@
     <string name="living_rank">Cost of Living Ranking</string>
     <string name="back_to_state">Back to States</string>
     <string name="see_results">See Results</string>
+    <string name="login_reminder">You haven\'t logged in. Please login to enjoy selecting your own indicators.</string>
 
 </resources>

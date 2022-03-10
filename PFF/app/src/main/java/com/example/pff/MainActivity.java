@@ -1,6 +1,7 @@
 package com.example.pff;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -35,12 +36,16 @@ public class MainActivity<color> extends AppCompatActivity {
     public final int CAP_GUEST = 2;//State cap for guest
     public final int CAP_MEMBER = 3;//State cap for member
 
+    AlertDialog.Builder continueBuilder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         activeUser = null;//Start main with no active user
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        continueBuilder = new AlertDialog.Builder(this);
 
         Intent intent = getIntent();
         if(intent.hasExtra("States")) {
@@ -144,10 +149,53 @@ public class MainActivity<color> extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("States", states);
         bundle.putStringArrayList("Indicators", indicators);
-        Intent intent = new Intent(this, IndicatorActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
+
+        if (activeUser != null){
+            Intent intent = new Intent(this, IndicatorActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        else if (activeUser == null){
+            continueBuilder = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialog_AppCompat);
+            View continue_popup = getLayoutInflater().inflate(R.layout.continue_popup,
+                    (ConstraintLayout)findViewById(R.id.Dialog_Container));
+            continueBuilder.setView(continue_popup);
+            continueBuilder.setTitle("Don't miss your chance to choose your own indicators!");
+            final AlertDialog continueDialog = continueBuilder.create();
+            Button continue_popup_login = (Button)continue_popup.findViewById(R.id.reminder_login);
+            Button continue_popup_continue = (Button)continue_popup.findViewById(R.id.reminder_continue);
+
+            continue_popup_login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Go back to Main landing page
+                    continueDialog.dismiss();
+                    Toast.makeText(MainActivity.this, "Back",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            continue_popup_continue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Go to Results Page
+                    indicators.add("Annual Median Wage");
+                    indicators.add("Happiness Ranking");
+                    indicators.add("State Income Tax Rate");
+
+                    System.out.println(indicators);
+
+                    continueDialog.dismiss();
+                    Toast.makeText(MainActivity.this, "Continue",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, ResultsActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
+            continueDialog.show();
+
+        }
     }
+
 
     public void logout(View view) {
         if(activeUser != null) {
