@@ -2,7 +2,11 @@ package com.example.pff;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,15 +28,19 @@ public class ResultsActivity<color> extends AppCompatActivity {
         states = getIntent().getExtras().getIntegerArrayList("States");
         indicators = getIntent().getExtras().getIntegerArrayList("Indicators");
 
-//        ((TextView)findViewById(R.id.textView2)).setText(indicators.get(0));
-//        ((TextView)findViewById(R.id.textView6)).setText(states.get(0));
+        LayoutInflater li = getLayoutInflater();
+        View v1 = li.inflate(R.layout.activity_main, null);
+        View v2 = li.inflate(R.layout.indicators, null);
+
+        ((TextView)findViewById(R.id.textView6)).setText(((Button)v1.findViewById(states.get(0))).getText());
+        ((TextView)findViewById(R.id.textView2)).setText(((CheckBox)v2.findViewById(indicators.get(0))).getText());
 
     }
 
     public void back(View view) {
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList("States", new ArrayList<String>());
-        bundle.putStringArrayList("Indicators", new ArrayList<String>());
+        bundle.putIntegerArrayList("States", new ArrayList<Integer>());
+        bundle.putIntegerArrayList("Indicators", new ArrayList<Integer>());
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
