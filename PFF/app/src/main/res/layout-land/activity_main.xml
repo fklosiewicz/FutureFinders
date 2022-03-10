@@ -10,6 +10,19 @@
 
 
     <Button
+        android:id="@+id/connect"
+        android:layout_width="107dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="236dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/purp"
+        android:onClick="establishConnection"
+        android:text="Connect"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Register" />
+
+    <Button
         android:id="@+id/Register"
         android:layout_width="111dp"
         android:layout_height="48dp"
@@ -628,6 +641,20 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Register" />
+
+    <Button
+        android:id="@+id/Account"
+        android:layout_width="110dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="3dp"
+        android:backgroundTint="@color/purp"
+        android:visibility="invisible"
+        android:onClick="account"
+        android:text="Account"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Login" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

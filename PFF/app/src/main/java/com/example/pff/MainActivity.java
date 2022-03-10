@@ -3,10 +3,12 @@ package com.example.pff;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -24,37 +26,86 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.UnknownHostException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class MainActivity<color> extends AppCompatActivity {
 
     Button Register;
     public ArrayList<User> users;//List of Users
-    public ArrayList<String> states;//List of selected states
-    public ArrayList<String> indicators;//List of selected indicators
+    public ArrayList<Integer> states;//List of selected states
+    public ArrayList<Integer> indicators;//List of selected indicators
     public User activeUser;//Logged in member
     public final int CAP_GUEST = 2;//State cap for guest
     public final int CAP_MEMBER = 3;//State cap for member
 
     AlertDialog.Builder continueBuilder;
 
+
+    private static Connection connection;
+    private static final String URL = "jdbc:mysql://172.16.122.19:3306/future_finders";
+    private static final String USER = "finder";
+    private static final String PASS = "1234abcd";
+
+    @SuppressLint("StaticFieldLeak")
+    public class InfoAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        protected Map<String, String> doInBackground(Void... voids) {
+            Map<String, String> info = new HashMap<>();
+            System.out.println("Connecting to the database...");
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASS)) {
+                System.out.println("Connection valid: " + connection.isValid(5));
+            } catch (Exception e) {
+                Log.e("InfoAsyncTask", "Error reading information", e);
+            }
+            return info;
+        }
+    }
+
+//    private static void openDatabaseConnection() throws SQLException {
+//        System.out.println("Connecting to the database...");
+//        connection = DriverManager.getConnection(URL, "finder", "1234abcd");
+//        System.out.println("Connection valid: " + connection.isValid(5));
+//    }
+//
+//    private static void closeDatabaseConnection() throws SQLException {
+//        System.out.println("Closing database connection...");
+//        connection.close();
+//    }
+
+    public void establishConnection(View view) {
+        new InfoAsyncTask().execute();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         activeUser = null;//Start main with no active user
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        continueBuilder = new AlertDialog.Builder(this);
-
         Intent intent = getIntent();
         if(intent.hasExtra("States")) {
-            states = intent.getExtras().getStringArrayList("States");
-            indicators = intent.getExtras().getStringArrayList("Indicators");
+            states = intent.getExtras().getIntegerArrayList("States");
+            for(int id : states) {
+                Button b = findViewById(id);
+                b.setBackgroundColor(Color.parseColor("#800080"));
+            }
+            indicators = intent.getExtras().getIntegerArrayList("Indicators");
         }
         else {
-            states = new ArrayList<String>();
-            indicators = new ArrayList<String>();
+            states = new ArrayList<Integer>();
+            indicators = new ArrayList<Integer>();
+        }
+        if(intent.hasExtra("User")) {
+            activeUser = (User)intent.getExtras().getSerializable("User");
+            users = (ArrayList<User>)intent.getExtras().getSerializable("Users");
+            findViewById(R.id.Account).setVisibility(View.VISIBLE);
         }
 
         File data = new File(p);
@@ -78,7 +129,7 @@ public class MainActivity<color> extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        else if (de){
+        else if (de) {
             try {
                 FileInputStream fis = new FileInputStream(p);
                 ObjectInputStream ois = new ObjectInputStream(fis);
@@ -105,7 +156,7 @@ public class MainActivity<color> extends AppCompatActivity {
     public void selectState(View view) {
         Button b = (Button)view;
         if(activeUser==null){//If no User is logged in
-            if(!states.contains(b.getText())) {
+            if(!states.contains(b.getId())) {
                 if(!(states.size()<CAP_GUEST)){//If the cap is reached, prompt user to register
                     AlertDialog.Builder cap_reached = new AlertDialog.Builder(this);
                     cap_reached.setMessage("Maximum " + CAP_GUEST + " states for guest.\nTo " +
@@ -114,17 +165,18 @@ public class MainActivity<color> extends AppCompatActivity {
                     cap_reached.show();
                     return;
                 }
-                states.add((String)b.getText());
+                states.add(b.getId());
                 //Change background color to indicate selected
                 b.setBackgroundColor(Color.parseColor("#800080"));
             }
             else {
-                states.remove(b.getText());
+                states.remove((Integer)b.getId());
                 //Change background color back to default to indicate deselected
                 b.setBackgroundColor(Color.parseColor("#FF6200EE"));
             }
-        }else{//If User is logged in
-            if(!states.contains(b.getText())) {
+        }
+        else{//If User is logged in
+            if(!states.contains(b.getId())) {
                 if(!(states.size()<CAP_MEMBER)){//If the cap is reached, extort
                     AlertDialog.Builder cap_reached = new AlertDialog.Builder(this);
                     cap_reached.setMessage("Maximum " + CAP_MEMBER + " states for members.\nTo " +
@@ -133,12 +185,12 @@ public class MainActivity<color> extends AppCompatActivity {
                     cap_reached.show();
                     return;
                 }
-                states.add((String)b.getText());
+                states.add(b.getId());
                 //Change background color to indicate selected
                 b.setBackgroundColor(Color.parseColor("#800080"));
             }
             else {
-                states.remove(b.getText());
+                states.remove(b.getId());
                 //Change background color back to default to indicate deselected
                 b.setBackgroundColor(Color.parseColor("#FF6200EE"));
             }
@@ -147,8 +199,13 @@ public class MainActivity<color> extends AppCompatActivity {
 
     public void indicators(View view) {
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList("States", states);
-        bundle.putStringArrayList("Indicators", indicators);
+        bundle.putIntegerArrayList("States", states);
+        bundle.putIntegerArrayList("Indicators", indicators);
+//        Intent intent = new Intent(this, IndicatorActivity.class);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+//        bundle.putStringArrayList("States", states);
+//        bundle.putStringArrayList("Indicators", indicators);
 
         if (activeUser != null){
             Intent intent = new Intent(this, IndicatorActivity.class);
@@ -178,9 +235,9 @@ public class MainActivity<color> extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // Go to Results Page
-                    indicators.add("Annual Median Wage");
-                    indicators.add("Happiness Ranking");
-                    indicators.add("State Income Tax Rate");
+                    indicators.add(0);
+                    indicators.add(1);
+                    indicators.add(2);
 
                     System.out.println(indicators);
 
@@ -201,6 +258,7 @@ public class MainActivity<color> extends AppCompatActivity {
         if(activeUser != null) {
             Toast.makeText(this, "User: " + activeUser.username + " successfully logged out!", Toast.LENGTH_LONG).show();
             activeUser = null;
+            findViewById(R.id.Account).setVisibility(View.INVISIBLE);
             return;
         }
         else if(activeUser == null) {
@@ -246,6 +304,7 @@ public class MainActivity<color> extends AppCompatActivity {
                             no_delete.setMessage("Successful Login!").setPositiveButton("Okay", null);
                             no_delete.show();
                             activeUser = t;//Capture the logged in user
+                            findViewById(R.id.Account).setVisibility(View.VISIBLE);
                             success[0] = true;
                             return;
                     }
@@ -265,5 +324,14 @@ public class MainActivity<color> extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    public void account(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("User", activeUser);
+        bundle.putSerializable("Users", users);
+        Intent intent = new Intent(this, AccountActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

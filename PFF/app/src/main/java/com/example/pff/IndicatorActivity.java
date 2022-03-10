@@ -2,9 +2,11 @@ package com.example.pff;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TableRow;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 public class IndicatorActivity<color> extends AppCompatActivity {
 
     public ArrayList<String> states;
-    public ArrayList<String> indicators;
+    public ArrayList<Integer> indicators;
     private ImageView imageView;
     private TableRow row1;
     private TableRow row2;
@@ -37,18 +39,21 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         setContentView(R.layout.indicators);
 
         states = getIntent().getExtras().getStringArrayList("States");
-        indicators = getIntent().getExtras().getStringArrayList("Indicators");
-
+        indicators = getIntent().getExtras().getIntegerArrayList("Indicators");
+        for(int id : indicators) {
+            CheckBox c = findViewById(id);
+            c.setChecked(true);
+        }
     }
 
     // for later: add cap to number of indicators that can be added to list based on if logged in or not
     public void checked(View view) {
         CheckBox c = (CheckBox)view;
         if(c.isChecked()) {
-            indicators.add((String)c.getText());
+            indicators.add(c.getId());
         }
         else {
-            indicators.remove(c.getText());
+            indicators.remove((Integer)c.getId());
         }
     }
 
@@ -64,7 +69,11 @@ public class IndicatorActivity<color> extends AppCompatActivity {
             noStates.show();
         }
         else {
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("States", states);
+            bundle.putIntegerArrayList("Indicators", indicators);
             Intent intent = new Intent(this, ResultsActivity.class);
+            intent.putExtras(bundle);
             startActivity(intent);
         }
     }
@@ -72,7 +81,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     public void backToStates(View view) {
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("States", states);
-        bundle.putStringArrayList("Indicators", indicators);
+        bundle.putIntegerArrayList("Indicators", indicators);
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
