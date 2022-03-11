@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pff.design.User;
+
 import java.util.ArrayList;
 
 
@@ -19,6 +21,7 @@ public class ResultsActivity<color> extends AppCompatActivity {
 //    public ArrayList<String> indicators;
     public ArrayList<Integer> states;
     public ArrayList<Integer> indicators;
+    public User activeUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class ResultsActivity<color> extends AppCompatActivity {
 
         states = getIntent().getExtras().getIntegerArrayList("States");
         indicators = getIntent().getExtras().getIntegerArrayList("Indicators");
+        activeUser = getIntent().getExtras().containsKey("activeUser") ? (User)getIntent().getExtras().getSerializable("activeUser") : null;
 
         LayoutInflater li = getLayoutInflater();
         View v1 = li.inflate(R.layout.activity_main, null);
@@ -39,8 +43,11 @@ public class ResultsActivity<color> extends AppCompatActivity {
 
     public void back(View view) {
         Bundle bundle = new Bundle();
-        bundle.putIntegerArrayList("States", new ArrayList<Integer>());
-        bundle.putIntegerArrayList("Indicators", new ArrayList<Integer>());
+        bundle.putIntegerArrayList("States", states);
+        bundle.putIntegerArrayList("Indicators", indicators);
+        if(activeUser != null){
+            bundle.putSerializable("activeUser", activeUser);
+        }
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);

@@ -13,12 +13,15 @@ import android.widget.TableRow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pff.design.User;
+
 import java.util.ArrayList;
 
 public class IndicatorActivity<color> extends AppCompatActivity {
 
     public ArrayList<String> states;
     public ArrayList<Integer> indicators;
+    public User activeUser;//so that the user can remain logged in when going back
     private ImageView imageView;
     private TableRow row1;
     private TableRow row2;
@@ -40,6 +43,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
 
         states = getIntent().getExtras().getStringArrayList("States");
         indicators = getIntent().getExtras().getIntegerArrayList("Indicators");
+        activeUser = (User)getIntent().getExtras().getSerializable("activeUser");
         for(int id : indicators) {
             CheckBox c = findViewById(id);
             c.setChecked(true);
@@ -72,6 +76,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("States", states);
             bundle.putIntegerArrayList("Indicators", indicators);
+            bundle.putSerializable("activeUser", activeUser);
             Intent intent = new Intent(this, ResultsActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -82,6 +87,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("States", states);
         bundle.putIntegerArrayList("Indicators", indicators);
+        bundle.putSerializable("activeUser", activeUser);
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);

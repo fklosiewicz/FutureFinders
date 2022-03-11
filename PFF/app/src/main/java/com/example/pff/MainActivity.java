@@ -97,6 +97,10 @@ public class MainActivity<color> extends AppCompatActivity {
                 b.setBackgroundColor(Color.parseColor("#800080"));
             }
             indicators = intent.getExtras().getIntegerArrayList("Indicators");
+            if(intent.hasExtra("activeUser")){//so that we remain logged in when coming back from indicators/results
+                activeUser = (User)intent.getExtras().getSerializable("activeUser");
+                findViewById(R.id.Account).setVisibility(View.VISIBLE);
+            }
         }
         else {
             states = new ArrayList<Integer>();
@@ -190,7 +194,7 @@ public class MainActivity<color> extends AppCompatActivity {
                 b.setBackgroundColor(Color.parseColor("#800080"));
             }
             else {
-                states.remove(b.getId());
+                states.remove((Integer)b.getId());
                 //Change background color back to default to indicate deselected
                 b.setBackgroundColor(Color.parseColor("#FF6200EE"));
             }
@@ -201,6 +205,9 @@ public class MainActivity<color> extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putIntegerArrayList("States", states);
         bundle.putIntegerArrayList("Indicators", indicators);
+        if(activeUser != null){
+            bundle.putSerializable("activeUser", activeUser);
+        }
 //        Intent intent = new Intent(this, IndicatorActivity.class);
 //        intent.putExtras(bundle);
 //        startActivity(intent);
