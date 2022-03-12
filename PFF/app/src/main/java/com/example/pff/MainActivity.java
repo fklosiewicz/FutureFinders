@@ -45,39 +45,40 @@ public class MainActivity<color> extends AppCompatActivity {
 
     AlertDialog.Builder continueBuilder;
 
-
-    private static Connection connection;
     private static final String URL = "jdbc:mysql://172.16.122.19:3306/future_finders";
     private static final String USER = "finder";
     private static final String PASS = "1234abcd";
 
     @SuppressLint("StaticFieldLeak")
-    public class InfoAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
-        protected Map<String, String> doInBackground(Void... voids) {
+    public class InfoAsyncTask extends AsyncTask<String, Void, Map<String, String>> {
+        protected Map<String, String> doInBackground(String... strings) {
             Map<String, String> info = new HashMap<>();
             System.out.println("Connecting to the database...");
             try (Connection connection = DriverManager.getConnection(URL, USER, PASS)) {
                 System.out.println("Connection valid: " + connection.isValid(5));
+
+                String sql = "SELECT Wage FROM Indicators WHERE StateABBR = '" + strings[0] + "';";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery();
+
+                if(resultSet.next()) {
+                    info.put("Wage", resultSet.getString("Wage"));
+                }
             } catch (Exception e) {
                 Log.e("InfoAsyncTask", "Error reading information", e);
             }
             return info;
         }
+
+        @Override
+        protected void onPostExecute(Map<String, String> result) {
+            if (!result.isEmpty()) {
+            }
+        }
     }
 
-//    private static void openDatabaseConnection() throws SQLException {
-//        System.out.println("Connecting to the database...");
-//        connection = DriverManager.getConnection(URL, "finder", "1234abcd");
-//        System.out.println("Connection valid: " + connection.isValid(5));
-//    }
-//
-//    private static void closeDatabaseConnection() throws SQLException {
-//        System.out.println("Closing database connection...");
-//        connection.close();
-//    }
-
-    public void establishConnection(View view) {
-        new InfoAsyncTask().execute();
+    public void establishConnection(View view) throws InterruptedException {
+        new InfoAsyncTask().execute("CA");
     }
 
     @Override
