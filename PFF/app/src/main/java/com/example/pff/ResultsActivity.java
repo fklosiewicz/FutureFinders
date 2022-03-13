@@ -89,13 +89,18 @@ public class ResultsActivity<color> extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+//<<<<<<< HEAD
+//
+//
+//=======
+//>>>>>>> 99cc7919bd4f449b3c8c5e1232dbf4d8e3d6dc83
 
         states = getIntent().getExtras().getIntegerArrayList("States");
         indicators = getIntent().getExtras().getIntegerArrayList("Indicators");
         activeUser = getIntent().getExtras().containsKey("activeUser") ? (User) getIntent().getExtras().getSerializable("activeUser") : null;
 
+//<<<<<<< HEAD
+        //This will route to the correct results page depending on whether logged in or not
         if(activeUser == null){
             setContentView(R.layout.guest_results);
         }else{
@@ -103,6 +108,14 @@ public class ResultsActivity<color> extends AppCompatActivity {
         }
 
 
+//=======
+//        if(states.size()==3){  //This won't work, because members can choose 1 state or 2; see above
+//            setContentView(R.layout.results);
+//        }
+//        else{
+//            setContentView(R.layout.guest_results);
+//        }
+//>>>>>>> 99cc7919bd4f449b3c8c5e1232dbf4d8e3d6dc83
         LayoutInflater li = getLayoutInflater();
         View v1 = li.inflate(R.layout.activity_main, null);
         View v2 = li.inflate(R.layout.indicators, null);

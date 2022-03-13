@@ -83,7 +83,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
             bundle.putStringArrayList("States", states);
             bundle.putIntegerArrayList("Indicators", indicators);
             bundle.putSerializable("activeUser", activeUser);
-            Intent intent = new Intent(this, ResultsActivity.class);
+            Intent intent = new Intent(IndicatorActivity.this, ResultsActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
         }
