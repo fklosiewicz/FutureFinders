@@ -22,7 +22,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     public ArrayList<String> states;
     public ArrayList<Integer> indicators;
     public User activeUser;//so that the user can remain logged in when going back
-    public int IND_MEMBER = 1; // This is a temporary fix, otherwise the application does not compile and run.
+    public final int IND_MEMBER = 5; // The cap number of indicators.
     private ImageView imageView;
     private TableRow row1;
     private TableRow row2;
