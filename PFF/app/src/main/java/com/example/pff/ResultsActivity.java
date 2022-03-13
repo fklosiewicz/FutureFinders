@@ -117,6 +117,7 @@ public class ResultsActivity<color> extends AppCompatActivity {
         Indicator3.setText("Happiness");
 
         int numStates = states.size();//The number of states selected
+        int numIndicators = indicators.size();//The number of indicators
         TextView State1;
         TextView State2;
         TextView State3;
@@ -130,6 +131,11 @@ public class ResultsActivity<color> extends AppCompatActivity {
                 State1.setText(((Button)v1.findViewById(states.get(0))).getText());
                 s1 = (String) ((Button)v1.findViewById(states.get(0))).getText();
                 new InfoAsyncTask().execute(s1);
+                findViewById(R.id.rowS2).setVisibility(View.GONE);
+                if(activeUser!=null){
+                    findViewById(R.id.rowS3).setVisibility(View.GONE);
+                }
+
                 break;
             case 2://two states are selected
                 State1 = findViewById(R.id.textView6);
@@ -142,6 +148,9 @@ public class ResultsActivity<color> extends AppCompatActivity {
 
                 new InfoAsyncTask().execute(s1);
                 new InfoAsyncTask().execute(s2);
+                if(activeUser!=null){
+                    findViewById(R.id.rowS3).setVisibility(View.GONE);
+                }
                 break;
             case 3://three states are selected
                 State1 = findViewById(R.id.textView6);
@@ -163,6 +172,59 @@ public class ResultsActivity<color> extends AppCompatActivity {
             default://not really needed because we will have 1, 2, or 3 states for sure...
         }
 
+        if(activeUser!=null){
+            switch(numIndicators){
+                case 1:
+                    findViewById(R.id.textView3).setVisibility(View.GONE);
+                    findViewById(R.id.textView8).setVisibility(View.GONE);
+                    findViewById(R.id.textView13).setVisibility(View.GONE);
+                    findViewById(R.id.textView18).setVisibility(View.GONE);
+                    findViewById(R.id.textView4).setVisibility(View.GONE);
+                    findViewById(R.id.textView9).setVisibility(View.GONE);
+                    findViewById(R.id.textView14).setVisibility(View.GONE);
+                    findViewById(R.id.textView19).setVisibility(View.GONE);
+                    findViewById(R.id.textView5).setVisibility(View.GONE);
+                    findViewById(R.id.textView10).setVisibility(View.GONE);
+                    findViewById(R.id.textView15).setVisibility(View.GONE);
+                    findViewById(R.id.textView20).setVisibility(View.GONE);
+                    findViewById(R.id.textView21).setVisibility(View.GONE);
+                    findViewById(R.id.textView22).setVisibility(View.GONE);
+                    findViewById(R.id.textView23).setVisibility(View.GONE);
+                    findViewById(R.id.textView24).setVisibility(View.GONE);
+                    break;
+                case 2:
+                    findViewById(R.id.textView4).setVisibility(View.GONE);
+                    findViewById(R.id.textView9).setVisibility(View.GONE);
+                    findViewById(R.id.textView14).setVisibility(View.GONE);
+                    findViewById(R.id.textView19).setVisibility(View.GONE);
+                    findViewById(R.id.textView5).setVisibility(View.GONE);
+                    findViewById(R.id.textView10).setVisibility(View.GONE);
+                    findViewById(R.id.textView15).setVisibility(View.GONE);
+                    findViewById(R.id.textView20).setVisibility(View.GONE);
+                    findViewById(R.id.textView21).setVisibility(View.GONE);
+                    findViewById(R.id.textView22).setVisibility(View.GONE);
+                    findViewById(R.id.textView23).setVisibility(View.GONE);
+                    findViewById(R.id.textView24).setVisibility(View.GONE);
+                    break;
+                case 3:
+                    findViewById(R.id.textView5).setVisibility(View.GONE);
+                    findViewById(R.id.textView10).setVisibility(View.GONE);
+                    findViewById(R.id.textView15).setVisibility(View.GONE);
+                    findViewById(R.id.textView20).setVisibility(View.GONE);
+                    findViewById(R.id.textView21).setVisibility(View.GONE);
+                    findViewById(R.id.textView22).setVisibility(View.GONE);
+                    findViewById(R.id.textView23).setVisibility(View.GONE);
+                    findViewById(R.id.textView24).setVisibility(View.GONE);
+                    break;
+                case 4:
+                    findViewById(R.id.textView21).setVisibility(View.GONE);
+                    findViewById(R.id.textView22).setVisibility(View.GONE);
+                    findViewById(R.id.textView23).setVisibility(View.GONE);
+                    findViewById(R.id.textView24).setVisibility(View.GONE);
+                    break;
+                default://not needed...
+            }
+        }
 
 
 
