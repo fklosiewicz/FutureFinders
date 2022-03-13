@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -121,16 +122,79 @@ public class ResultsActivity<color> extends AppCompatActivity {
         View v1 = li.inflate(R.layout.activity_main, null);
         View v2 = li.inflate(R.layout.indicators, null);
 
-        TextView Indicator1 = findViewById(R.id.textView2);
-        Indicator1.setText("Salary");
+        if(activeUser==null) {
+            TextView Indicator1 = findViewById(R.id.textView2);
+            Indicator1.setText("Salary");
 
-        TextView Indicator2 = findViewById(R.id.textView3);
-        Indicator2.setText("Tax");
+            TextView Indicator2 = findViewById(R.id.textView3);
+            Indicator2.setText("Tax");
 
-        TextView Indicator3 = findViewById(R.id.textView4);
-        Indicator3.setText("Happiness");
+            TextView Indicator3 = findViewById(R.id.textView4);
+            Indicator3.setText("Happiness");
+        }
+        else {
+            TextView Indicator1, Indicator2, Indicator3, Indicator4, Indicator5;
+            String c1, c2, c3, c4, c5;
+            switch (indicators.size()) {
+                case 1:
+                    Indicator1 = findViewById(R.id.textView2);
+                    c1 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(0))).getText());
+                    Indicator1.setText(c1);
+                    break;
+                case 2:
+                    Indicator1 = findViewById(R.id.textView2);
+                    c1 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(0))).getText());
+                    Indicator1.setText(c1);
+                    Indicator2 = findViewById(R.id.textView3);
+                    c2 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(1))).getText());
+                    Indicator2.setText(c2);
+                    break;
+                case 3:
+                    Indicator1 = findViewById(R.id.textView2);
+                    c1 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(0))).getText());
+                    Indicator1.setText(c1);
+                    Indicator2 = findViewById(R.id.textView3);
+                    c2 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(1))).getText());
+                    Indicator2.setText(c2);
+                    Indicator3 = findViewById(R.id.textView4);
+                    c3 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(2))).getText());
+                    Indicator3.setText(c3);
+                    break;
+                case 4:
+                    Indicator1 = findViewById(R.id.textView2);
+                    c1 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(0))).getText());
+                    Indicator1.setText(c1);
+                    Indicator2 = findViewById(R.id.textView3);
+                    c2 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(1))).getText());
+                    Indicator2.setText(c2);
+                    Indicator3 = findViewById(R.id.textView4);
+                    c3 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(2))).getText());
+                    Indicator3.setText(c3);
+                    Indicator4 = findViewById(R.id.textView5);
+                    c4 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(3))).getText());
+                    Indicator4.setText(c4);
+                    break;
+                case 5:
+                    Indicator1 = findViewById(R.id.textView2);
+                    c1 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(0))).getText());
+                    Indicator1.setText(c1);
+                    Indicator2 = findViewById(R.id.textView3);
+                    c2 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(1))).getText());
+                    Indicator2.setText(c2);
+                    Indicator3 = findViewById(R.id.textView4);
+                    c3 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(2))).getText());
+                    Indicator3.setText(c3);
+                    Indicator4 = findViewById(R.id.textView5);
+                    c4 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(3))).getText());
+                    Indicator4.setText(c4);
+                    Indicator5 = findViewById(R.id.textView21);
+                    c5 = shortIndicatorName((String) ((CheckBox) v2.findViewById(indicators.get(4))).getText());
+                    Indicator5.setText(c5);
+                    break;
+            }
+        }
 
-        int numStates = states.size();//The number of states selected
+            int numStates = states.size();//The number of states selected
         int numIndicators = indicators.size();//The number of indicators
         TextView State1;
         TextView State2;
@@ -511,6 +575,39 @@ public class ResultsActivity<color> extends AppCompatActivity {
         ((TextView)findViewById(R.id.textView2)).setText(((CheckBox)v2.findViewById(indicators.get(0))).getText());
         */
     }
+
+    public String shortIndicatorName(String buttonName){
+        if(buttonName.equals("Annual Median Wage"))
+            return "Salary";
+        else if(buttonName.equals("Happiness Ranking")){
+            return "Happiness";
+        }
+        else if(buttonName.equals("State Income Tax Rate")){
+            return "Tax";
+        }
+        else if(buttonName.equals("State Income Tax Bracket")){
+            return "Tax Bracket";
+        }
+        else if(buttonName.equals("Entertainment, Recreation, and Nightlife Ranking")){
+            return "Fun";
+        }
+        else if(buttonName.equals("Healthcare Ranking")){
+            return "Health";
+        }
+        else if(buttonName.equals("Air and Water Quality")){
+            return "Air and Water";
+        }
+        else if(buttonName.equals("Education Ranking")){
+            return "Education";
+        }
+        else if(buttonName.equals("Cost of Living Index")){
+            return "Living Index";
+        }
+        //Cost of Living Ranking
+        return "Living Rank";
+
+    }
+
 
     public void back(View view) {
         Bundle bundle = new Bundle();
