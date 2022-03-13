@@ -36,6 +36,8 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     private CheckBox living_index;
     private CheckBox living_ranking;
 
+    public final int IND_MEMBER = 5;//Indicators cap for member
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,16 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     // for later: add cap to number of indicators that can be added to list based on if logged in or not
     public void checked(View view) {
         CheckBox c = (CheckBox)view;
-        if(c.isChecked()) {
+        if(!indicators.contains(c.getId())) {
+            if(!(indicators.size()<IND_MEMBER)){
+                indicators.remove((Integer)c.getId());
+                c.setChecked(false);
+                AlertDialog.Builder cap_reached = new AlertDialog.Builder(this);
+                cap_reached.setMessage("Maximum " + IND_MEMBER + " indicators for members to choose.\n").setPositiveButton("Okay", null);
+                cap_reached.show();
+                System.out.println(indicators);
+                return;
+            }
             indicators.add(c.getId());
         }
         else {
