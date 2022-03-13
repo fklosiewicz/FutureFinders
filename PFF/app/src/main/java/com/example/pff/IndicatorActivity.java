@@ -22,7 +22,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     public ArrayList<String> states;
     public ArrayList<Integer> indicators;
     public User activeUser;//so that the user can remain logged in when going back
-    private ImageView imageView;
+    public final int IND_MEMBER = 5; // The cap number of indicators.    private ImageView imageView;
     private TableRow row1;
     private TableRow row2;
     private CheckBox wage;
@@ -35,8 +35,6 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     private CheckBox education;
     private CheckBox living_index;
     private CheckBox living_ranking;
-
-    public final int IND_MEMBER = 5;//Indicators cap for member
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

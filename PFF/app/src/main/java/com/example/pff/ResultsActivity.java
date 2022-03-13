@@ -2,17 +2,12 @@ package com.example.pff;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,13 +41,15 @@ public class ResultsActivity<color> extends AppCompatActivity {
             try (Connection connection = DriverManager.getConnection(URL, USER, PASS)) {
                 System.out.println("Connection valid: " + connection.isValid(5));
 
-                String sql = "SELECT Wage FROM Indicators WHERE StateABBR = '" + strings[0] + "';";
+                String sql = "SELECT Wage, Happiness, StateTax FROM Indicators WHERE StateABBR = '" + strings[0] + "';";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet resultSet = statement.executeQuery();
 
                 if(resultSet.next()) {
                     info.put("State", strings[0]);
                     info.put("Wage", resultSet.getString("Wage"));
+                    info.put("StateTax", resultSet.getString("StateTax"));
+                    info.put("Happiness", resultSet.getString("Happiness"));
                 }
             } catch (Exception e) {
                 Log.e("InfoAsyncTask", "Error reading information", e);
@@ -65,18 +62,24 @@ public class ResultsActivity<color> extends AppCompatActivity {
             if (!result.isEmpty()) {
                 TextView State1 = findViewById(R.id.textView6);
                 TextView State2 = findViewById(R.id.textView11);
-                TextView State3 = findViewById(R.id.textView16);
                 if(result.get("State").equals(State1.getText().toString())) {
                     TextView Indicator1 = findViewById(R.id.textView7);
                     Indicator1.setText(result.get("Wage"));
+                    TextView Indicator2 = findViewById(R.id.textView8);
+                    String tax = result.get("StateTax") + "%";
+                    Indicator2.setText(tax);
+                    TextView Indicator3 = findViewById(R.id.textView9);
+                    Indicator3.setText(result.get("Happiness"));
+
                 }
                 if(result.get("State").equals(State2.getText().toString())) {
-                    TextView Indicator2 = findViewById(R.id.textView12);
-                    Indicator2.setText(result.get("Wage"));
-                }
-                if(result.get("State").equals(State3.getText().toString())) {
-                    TextView Indicator3 = findViewById(R.id.textView17);
-                    Indicator3.setText(result.get("Wage"));
+                    TextView Indicator1 = findViewById(R.id.textView12);
+                    Indicator1.setText(result.get("Wage"));
+                    TextView Indicator2 = findViewById(R.id.textView13);
+                    String tax = result.get("StateTax") + "%";
+                    Indicator2.setText(tax);
+                    TextView Indicator3 = findViewById(R.id.textView14);
+                    Indicator3.setText(result.get("Happiness"));
                 }
             }
         }
@@ -96,12 +99,211 @@ public class ResultsActivity<color> extends AppCompatActivity {
         View v1 = li.inflate(R.layout.activity_main, null);
         View v2 = li.inflate(R.layout.indicators, null);
 
+        TextView Indicator1 = findViewById(R.id.textView2);
+        Indicator1.setText("Salary");
+
+        TextView Indicator2 = findViewById(R.id.textView3);
+        Indicator2.setText("Tax");
+
+        TextView Indicator3 = findViewById(R.id.textView4);
+        Indicator3.setText("Happiness");
+
+        TextView State1 = findViewById(R.id.textView6);
+        State1.setText(((Button)v1.findViewById(states.get(0))).getText());
+        String s1 = (String) ((Button)v1.findViewById(states.get(0))).getText();
+
+        TextView State2 = findViewById(R.id.textView11);
+        State2.setText(((Button)v1.findViewById(states.get(1))).getText());
+        String s2 = (String) ((Button)v1.findViewById(states.get(1))).getText();
+
+        new InfoAsyncTask().execute(s1);
+        new InfoAsyncTask().execute(s2);
+
+
+
+
+
+
+
+//        init();
+
+        /*LayoutInflater li = getLayoutInflater();
+=======
+>>>>>>> origin/master
+        View v1 = li.inflate(R.layout.activity_main, null);
+        View v2 = li.inflate(R.layout.indicators, null);
+
         //guest user
         if(activeUser==null) {
             //top row, indicator names
             TextView Indicator1 = findViewById(R.id.textView2);
             Indicator1.setText("Salary");
 
+<<<<<<< HEAD
+//    public void init() {
+//
+//        LayoutInflater li = getLayoutInflater();
+//        View v1 = li.inflate(R.layout.activity_main, null);
+//        View v2 = li.inflate(R.layout.indicators, null);
+//
+//        TableLayout stk = (TableLayout) findViewById(R.id.table_main);
+//
+//        if(activeUser==null){
+//            //indicator header for guest
+//            TableRow tbrow0 = new TableRow(this);
+//            TextView tv0 = new TextView(this);
+//            tv0.setText("   ");
+//            tv0.setTextColor(Color.BLACK);
+//            tbrow0.addView(tv0);
+//            TextView tv1 = new TextView(this);
+//            tv1.setText(" Salary ");
+//            tv1.setTextColor(Color.BLACK);
+//            tbrow0.addView(tv1);
+//            TextView tv2 = new TextView(this);
+//            tv2.setText(" Tax ");
+//            tv2.setTextColor(Color.BLACK);
+//            tbrow0.addView(tv2);
+//            TextView tv3 = new TextView(this);
+//            tv3.setText(" Happiness ");
+//            tv3.setTextColor(Color.BLACK);
+//            tbrow0.addView(tv3);
+//            stk.addView(tbrow0);
+//            //dynamic rows
+//            for (int i = 0; i < states.size(); i++) {
+//                TableRow tbrow = new TableRow(this);
+//                TextView t1v = new TextView(this);
+//                t1v.setText(((Button)v1.findViewById(states.get(i))).getText());
+//                t1v.setTextColor(Color.BLACK);
+//                t1v.setGravity(Gravity.CENTER);
+//                tbrow.addView(t1v);
+//                TextView t2v = new TextView(this);
+//
+//                new InfoAsyncTask().execute("CA");
+//
+//                t2v.setText("indicators" + i);
+//
+//                t2v.setTextColor(Color.BLACK);
+//                t2v.setGravity(Gravity.CENTER);
+//                tbrow.addView(t2v);
+//
+//
+//
+//                TextView t3v = new TextView(this);
+//                t3v.setText("indicator" + i);
+//                t3v.setTextColor(Color.BLACK);
+//                t3v.setGravity(Gravity.CENTER);
+//                tbrow.addView(t3v);
+//                TextView t4v = new TextView(this);
+//                t4v.setText("indicator" + i);
+//                t4v.setTextColor(Color.BLACK);
+//                t4v.setGravity(Gravity.CENTER);
+//                tbrow.addView(t4v);
+//                stk.addView(tbrow);
+//            }
+//        }
+//        else{
+//            int count = 0;
+//            //indicator header for member user
+//            TableRow tbrow0 = new TableRow(this);
+//            TextView tv0 = new TextView(this);
+//            tv0.setText("   ");
+//            tv0.setTextColor(Color.BLACK);
+//            tbrow0.addView(tv0);
+//            if(count<indicators.size()){
+//                TextView t1v = new TextView(this);
+//                t1v.setText(((Button)v2.findViewById(indicators.get(count))).getText());
+//                t1v.setTextColor(Color.BLACK);
+//                t1v.setGravity(Gravity.CENTER);
+//                tbrow0.addView(t1v);
+//                count++;
+//            }
+//            if(count<indicators.size()){
+//                TextView t2v = new TextView(this);
+//                t2v.setText(((Button)v2.findViewById(indicators.get(count))).getText());
+//                t2v.setTextColor(Color.BLACK);
+//                t2v.setGravity(Gravity.CENTER);
+//                tbrow0.addView(t2v);
+//                count++;
+//            }
+//            if(count<indicators.size()){
+//                TextView t3v = new TextView(this);
+//                t3v.setText(((Button)v2.findViewById(indicators.get(count))).getText());
+//                t3v.setTextColor(Color.BLACK);
+//                t3v.setGravity(Gravity.CENTER);
+//                tbrow0.addView(t3v);
+//                count++;
+//            }
+//            if(count<indicators.size()){
+//                TextView t4v = new TextView(this);
+//                t4v.setText(((Button)v2.findViewById(indicators.get(count))).getText());
+//                t4v.setTextColor(Color.BLACK);
+//                t4v.setGravity(Gravity.CENTER);
+//                tbrow0.addView(t4v);
+//                count++;
+//            }
+//            if(count<indicators.size()){
+//                TextView t5v = new TextView(this);
+//                t5v.setText(((Button)v2.findViewById(indicators.get(count))).getText());
+//                t5v.setTextColor(Color.BLACK);
+//                t5v.setGravity(Gravity.CENTER);
+//                tbrow0.addView(t5v);
+//            }
+//            stk.addView(tbrow0);
+//
+//            //dynamic rows
+//            for (int i = 0; i < states.size(); i++) {
+//                int count2 = 0;
+//                TableRow tbrow = new TableRow(this);
+//                TextView t0v = new TextView(this);
+//                t0v.setText(((Button)v1.findViewById(states.get(i))).getText());
+//                t0v.setTextColor(Color.BLACK);
+//                t0v.setGravity(Gravity.CENTER);
+//                tbrow.addView(t0v);
+//                if(count2<indicators.size()){
+//                    TextView t1v = new TextView(this);
+//                    t1v.setText("indi " + i);
+//                    t1v.setTextColor(Color.BLACK);
+//                    t1v.setGravity(Gravity.CENTER);
+//                    tbrow.addView(t1v);
+//                    count2++;
+//                }
+//                if(count2<indicators.size()){
+//                    TextView t2v = new TextView(this);
+//                    t2v.setText("indi " + i);
+//                    t2v.setTextColor(Color.BLACK);
+//                    t2v.setGravity(Gravity.CENTER);
+//                    tbrow.addView(t2v);
+//                    count2++;
+//                }
+//                if(count2<indicators.size()){
+//                    TextView t3v = new TextView(this);
+//                    t3v.setText("indi " + i);
+//                    t3v.setTextColor(Color.BLACK);
+//                    t3v.setGravity(Gravity.CENTER);
+//                    tbrow.addView(t3v);
+//                    count2++;
+//                }
+//                if(count2<indicators.size()){
+//                    TextView t4v = new TextView(this);
+//                    t4v.setText("indi " + i);
+//                    t4v.setTextColor(Color.BLACK);
+//                    t4v.setGravity(Gravity.CENTER);
+//                    tbrow.addView(t4v);
+//                    count2++;
+//                }
+//                if(count2<indicators.size()){
+//                    TextView t5v = new TextView(this);
+//                    t5v.setText("indi " + i);
+//                    t5v.setTextColor(Color.BLACK);
+//                    t5v.setGravity(Gravity.CENTER);
+//                    tbrow.addView(t5v);
+//                }
+//                stk.addView(tbrow);
+//            }
+//
+//        }
+//    }
+=======
             TextView Indicator2 = findViewById(R.id.textView3);
             Indicator2.setText("Tax");
 
