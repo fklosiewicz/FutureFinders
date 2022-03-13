@@ -48,8 +48,8 @@ public class ResultsActivity<color> extends AppCompatActivity {
                 if(resultSet.next()) {
                     info.put("State", strings[0]);
                     info.put("Wage", resultSet.getString("Wage"));
+                    info.put("StateTax", resultSet.getString("StateTax"));
                     info.put("Happiness", resultSet.getString("Happiness"));
-                    info.put("StateTax", resultSet.getString("Happiness"));
                 }
             } catch (Exception e) {
                 Log.e("InfoAsyncTask", "Error reading information", e);
