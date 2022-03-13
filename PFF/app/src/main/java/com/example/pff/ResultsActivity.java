@@ -108,19 +108,53 @@ public class ResultsActivity<color> extends AppCompatActivity {
         TextView Indicator3 = findViewById(R.id.textView4);
         Indicator3.setText("Happiness");
 
-        TextView State1 = findViewById(R.id.textView6);
-        State1.setText(((Button)v1.findViewById(states.get(0))).getText());
-        String s1 = (String) ((Button)v1.findViewById(states.get(0))).getText();
+        int numStates = states.size();//The number of states selected
+        TextView State1;
+        TextView State2;
+        TextView State3;
+        String s1;
+        String s2;
+        String s3;
 
-        TextView State2 = findViewById(R.id.textView11);
-        State2.setText(((Button)v1.findViewById(states.get(1))).getText());
-        String s2 = (String) ((Button)v1.findViewById(states.get(1))).getText();
+        switch (numStates){
+            case 1://only one state is selected
+                State1 = findViewById(R.id.textView6);
+                State1.setText(((Button)v1.findViewById(states.get(0))).getText());
+                s1 = (String) ((Button)v1.findViewById(states.get(0))).getText();
+                new InfoAsyncTask().execute(s1);
+                break;
+            case 2://two states are selected
+                State1 = findViewById(R.id.textView6);
+                State1.setText(((Button)v1.findViewById(states.get(0))).getText());
+                s1 = (String) ((Button)v1.findViewById(states.get(0))).getText();
 
-        new InfoAsyncTask().execute(s1);
-        new InfoAsyncTask().execute(s2);
+                State2 = findViewById(R.id.textView11);
+                State2.setText(((Button)v1.findViewById(states.get(1))).getText());
+                s2 = (String) ((Button)v1.findViewById(states.get(1))).getText();
 
+                new InfoAsyncTask().execute(s1);
+                new InfoAsyncTask().execute(s2);
+                break;
+            case 3://three states are selected
+                State1 = findViewById(R.id.textView6);
+                State1.setText(((Button)v1.findViewById(states.get(0))).getText());
+                s1 = (String) ((Button)v1.findViewById(states.get(0))).getText();
 
+                State2 = findViewById(R.id.textView11);
+                State2.setText(((Button)v1.findViewById(states.get(1))).getText());
+                s2 = (String) ((Button)v1.findViewById(states.get(1))).getText();
 
+                State3 = findViewById(R.id.textView16);
+                State3.setText(((Button)v1.findViewById(states.get(2))).getText());
+                s3 = (String) ((Button)v1.findViewById(states.get(2))).getText();
+
+                new InfoAsyncTask().execute(s1);
+                new InfoAsyncTask().execute(s2);
+                new InfoAsyncTask().execute(s3);
+                break;
+            default://not really needed because we will have 1, 2, or 3 states for sure...
+
+        }
 
 
 
