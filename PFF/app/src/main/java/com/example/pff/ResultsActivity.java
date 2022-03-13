@@ -100,6 +100,7 @@ public class ResultsActivity<color> extends AppCompatActivity {
         activeUser = getIntent().getExtras().containsKey("activeUser") ? (User) getIntent().getExtras().getSerializable("activeUser") : null;
 
 //<<<<<<< HEAD
+
         //This will route to the correct results page depending on whether logged in or not
         if(activeUser == null){
             setContentView(R.layout.guest_results);
@@ -185,7 +186,7 @@ public class ResultsActivity<color> extends AppCompatActivity {
             default://not really needed because we will have 1, 2, or 3 states for sure...
         }
 
-        if(activeUser!=null){
+        if(activeUser!=null){//If member is logged in, show the correct number of indicators
             switch(numIndicators){
                 case 1:
                     findViewById(R.id.textView3).setVisibility(View.GONE);

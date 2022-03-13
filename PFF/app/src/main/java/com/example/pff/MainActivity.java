@@ -84,7 +84,6 @@ public class MainActivity<color> extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         activeUser = null;//Start main with no active user
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         super.onCreate(savedInstanceState);
@@ -101,6 +100,7 @@ public class MainActivity<color> extends AppCompatActivity {
             if(intent.hasExtra("activeUser")){//so that we remain logged in when coming back from indicators/results
                 activeUser = (User)intent.getExtras().getSerializable("activeUser");
                 findViewById(R.id.Account).setVisibility(View.VISIBLE);
+                findViewById(R.id.Logout).setVisibility(View.VISIBLE);
             }
         }
         else {
@@ -111,6 +111,7 @@ public class MainActivity<color> extends AppCompatActivity {
             activeUser = (User)intent.getExtras().getSerializable("User");
             users = (ArrayList<User>)intent.getExtras().getSerializable("Users");
             findViewById(R.id.Account).setVisibility(View.VISIBLE);
+            findViewById(R.id.Logout).setVisibility(View.VISIBLE);
         }
 
         File data = new File(p);
@@ -157,7 +158,6 @@ public class MainActivity<color> extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // for later: add cap to number of states that can be added to list based on if logged in or not
     public void selectState(View view) {
         Button b = (Button)view;
         if(activeUser==null){//If no User is logged in
@@ -274,6 +274,7 @@ public class MainActivity<color> extends AppCompatActivity {
             Toast.makeText(this, "User: " + activeUser.username + " successfully logged out!", Toast.LENGTH_LONG).show();
             activeUser = null;
             findViewById(R.id.Account).setVisibility(View.INVISIBLE);
+            findViewById(R.id.Logout).setVisibility(View.INVISIBLE);
             for(int st : states){//Change background color of each selected state back to default to indicate deselected
                 Button b = (Button)findViewById(st);
                 b.setBackgroundColor(Color.parseColor("#FF6200EE"));
@@ -305,7 +306,9 @@ public class MainActivity<color> extends AppCompatActivity {
         builder.setTitle("Please enter your username and password:");
 
         final EditText login = new EditText(this);
+        login.setHint("User Name");
         final EditText pass = new EditText(this);
+        pass.setHint("Password");
 
         login.setInputType(InputType.TYPE_CLASS_TEXT);
         pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -326,6 +329,7 @@ public class MainActivity<color> extends AppCompatActivity {
                             no_delete.show();
                             activeUser = t;//Capture the logged in user
                             findViewById(R.id.Account).setVisibility(View.VISIBLE);
+                            findViewById(R.id.Logout).setVisibility(View.VISIBLE);
                             success[0] = true;
                             return;
                     }
