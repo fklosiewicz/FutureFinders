@@ -89,12 +89,17 @@ public class ResultsActivity<color> extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.guest_results);
 
         states = getIntent().getExtras().getIntegerArrayList("States");
         indicators = getIntent().getExtras().getIntegerArrayList("Indicators");
         activeUser = getIntent().getExtras().containsKey("activeUser") ? (User) getIntent().getExtras().getSerializable("activeUser") : null;
 
+        if(states.size()==3){
+            setContentView(R.layout.results);
+        }
+        else{
+            setContentView(R.layout.guest_results);
+        }
         LayoutInflater li = getLayoutInflater();
         View v1 = li.inflate(R.layout.activity_main, null);
         View v2 = li.inflate(R.layout.indicators, null);
