@@ -12,4 +12,6 @@
     <color name="purp">#800080</color>
     <color name="yellow">#FFBF00</color>
     <color name="antique_white">#FFFFCC</color>
+    <color name="transparent_purp">#B26200EE</color>"
+    <color name="transparent_white">#CCFFFFFF</color>
 </resources>
