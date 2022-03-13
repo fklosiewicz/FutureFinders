@@ -247,7 +247,6 @@
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#40FFFFFF"
         android:fontFamily="sans-serif-black"
         android:text="Results"
         android:textColor="#163AFF"
