@@ -84,7 +84,6 @@ public class MainActivity<color> extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         activeUser = null;//Start main with no active user
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         super.onCreate(savedInstanceState);
@@ -101,6 +100,7 @@ public class MainActivity<color> extends AppCompatActivity {
             if(intent.hasExtra("activeUser")){//so that we remain logged in when coming back from indicators/results
                 activeUser = (User)intent.getExtras().getSerializable("activeUser");
                 findViewById(R.id.Account).setVisibility(View.VISIBLE);
+                findViewById(R.id.Logout).setVisibility(View.VISIBLE);
             }
         }
         else {
@@ -111,6 +111,7 @@ public class MainActivity<color> extends AppCompatActivity {
             activeUser = (User)intent.getExtras().getSerializable("User");
             users = (ArrayList<User>)intent.getExtras().getSerializable("Users");
             findViewById(R.id.Account).setVisibility(View.VISIBLE);
+            findViewById(R.id.Logout).setVisibility(View.VISIBLE);
         }
 
         File data = new File(p);
@@ -157,7 +158,6 @@ public class MainActivity<color> extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // for later: add cap to number of states that can be added to list based on if logged in or not
     public void selectState(View view) {
         Button b = (Button)view;
         if(activeUser==null){//If no User is logged in
@@ -203,6 +203,13 @@ public class MainActivity<color> extends AppCompatActivity {
     }
 
     public void indicators(View view) {
+        if(states.isEmpty()) {//Make sure at least one state is selected
+            AlertDialog.Builder noStates = new AlertDialog.Builder(view.getContext());
+            noStates.setMessage("Please select at least one state").setPositiveButton("Okay", null);
+            noStates.show();
+            return;
+        }
+
         Bundle bundle = new Bundle();
         bundle.putIntegerArrayList("States", states);
         bundle.putIntegerArrayList("Indicators", indicators);
@@ -267,6 +274,13 @@ public class MainActivity<color> extends AppCompatActivity {
             Toast.makeText(this, "User: " + activeUser.username + " successfully logged out!", Toast.LENGTH_LONG).show();
             activeUser = null;
             findViewById(R.id.Account).setVisibility(View.INVISIBLE);
+            findViewById(R.id.Logout).setVisibility(View.INVISIBLE);
+            for(int st : states){//Change background color of each selected state back to default to indicate deselected
+                Button b = (Button)findViewById(st);
+                b.setBackgroundColor(Color.parseColor("#FF6200EE"));
+            }
+            states.clear();//clear selections when logging out
+            indicators.clear();//clear selections when logging out
             return;
         }
         else if(activeUser == null) {
@@ -292,7 +306,9 @@ public class MainActivity<color> extends AppCompatActivity {
         builder.setTitle("Please enter your username and password:");
 
         final EditText login = new EditText(this);
+        login.setHint("User Name");
         final EditText pass = new EditText(this);
+        pass.setHint("Password");
 
         login.setInputType(InputType.TYPE_CLASS_TEXT);
         pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -304,17 +320,24 @@ public class MainActivity<color> extends AppCompatActivity {
         builder.setView(lay);
         final boolean[] success = {false};
 
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
+
+        builder.setNegativeButton("Login", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 for (User t : users) {
                     if(login.getText().toString().equals(t.username) && pass.getText().toString().equals(t.password)) {
-                            AlertDialog.Builder no_delete = new AlertDialog.Builder(view.getContext());
-                            no_delete.setMessage("Successful Login!").setPositiveButton("Okay", null);
-                            no_delete.show();
-                            activeUser = t;//Capture the logged in user
-                            findViewById(R.id.Account).setVisibility(View.VISIBLE);
-                            success[0] = true;
-                            return;
+                        AlertDialog.Builder no_delete = new AlertDialog.Builder(view.getContext());
+                        no_delete.setMessage("Successful Login!").setPositiveButton("Okay", null);
+                        no_delete.show();
+                        activeUser = t;//Capture the logged in user
+                        findViewById(R.id.Account).setVisibility(View.VISIBLE);
+                        findViewById(R.id.Logout).setVisibility(View.VISIBLE);
+                        success[0] = true;
+                        return;
                     }
                 }
                 if(success[0] == false) {
@@ -325,13 +348,7 @@ public class MainActivity<color> extends AppCompatActivity {
                 }
             }
         });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel();
-            }
-        });
-        builder.show();
+        builder.show().getButton(AlertDialog.BUTTON_NEGATIVE).requestFocus();
     }
 
     public void account(View view) {

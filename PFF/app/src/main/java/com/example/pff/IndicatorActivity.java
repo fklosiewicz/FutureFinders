@@ -22,7 +22,8 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     public ArrayList<String> states;
     public ArrayList<Integer> indicators;
     public User activeUser;//so that the user can remain logged in when going back
-    public final int IND_MEMBER = 5; // The cap number of indicators.    private ImageView imageView;
+    public final int IND_MEMBER = 5; // The cap number of indicators.
+    private ImageView imageView;
     private TableRow row1;
     private TableRow row2;
     private CheckBox wage;
@@ -55,7 +56,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         CheckBox c = (CheckBox)view;
         if(!indicators.contains(c.getId())) {
             if(!(indicators.size()<IND_MEMBER)){
-                indicators.remove((Integer)c.getId());
+                //indicators.remove((Integer)c.getId()); This doesn't do anything because this indicator is not present in the list
                 c.setChecked(false);
                 AlertDialog.Builder cap_reached = new AlertDialog.Builder(this);
                 cap_reached.setMessage("Maximum " + IND_MEMBER + " indicators for members to choose.\n").setPositiveButton("Okay", null);
@@ -67,16 +68,12 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         }
         else {
             indicators.remove((Integer)c.getId());
+            System.out.println(indicators);
         }
     }
 
     public void results(View view) {
-        if(states.isEmpty()) {
-            AlertDialog.Builder noStates = new AlertDialog.Builder(view.getContext());
-            noStates.setMessage("Please select at least one state").setPositiveButton("Okay", null);
-            noStates.show();
-        }
-        else if(indicators.isEmpty()) {
+        if(indicators.isEmpty()) {
             AlertDialog.Builder noStates = new AlertDialog.Builder(view.getContext());
             noStates.setMessage("Please select at least one indicator").setPositiveButton("Okay", null);
             noStates.show();
@@ -86,7 +83,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
             bundle.putStringArrayList("States", states);
             bundle.putIntegerArrayList("Indicators", indicators);
             bundle.putSerializable("activeUser", activeUser);
-            Intent intent = new Intent(this, ResultsActivity.class);
+            Intent intent = new Intent(IndicatorActivity.this, ResultsActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
         }
