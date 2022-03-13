@@ -267,6 +267,12 @@ public class MainActivity<color> extends AppCompatActivity {
             Toast.makeText(this, "User: " + activeUser.username + " successfully logged out!", Toast.LENGTH_LONG).show();
             activeUser = null;
             findViewById(R.id.Account).setVisibility(View.INVISIBLE);
+            for(int st : states){//Change background color of each selected state back to default to indicate deselected
+                Button b = (Button)findViewById(st);
+                b.setBackgroundColor(Color.parseColor("#FF6200EE"));
+            }
+            states.clear();//clear selections when logging out
+            indicators.clear();//clear selections when logging out
             return;
         }
         else if(activeUser == null) {

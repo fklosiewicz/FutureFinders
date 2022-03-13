@@ -56,7 +56,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         CheckBox c = (CheckBox)view;
         if(!indicators.contains(c.getId())) {
             if(!(indicators.size()<IND_MEMBER)){
-                indicators.remove((Integer)c.getId());
+                //indicators.remove((Integer)c.getId()); This doesn't do anything because this indicator is not present in the list
                 c.setChecked(false);
                 AlertDialog.Builder cap_reached = new AlertDialog.Builder(this);
                 cap_reached.setMessage("Maximum " + IND_MEMBER + " indicators for members to choose.\n").setPositiveButton("Okay", null);
@@ -68,6 +68,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         }
         else {
             indicators.remove((Integer)c.getId());
+            System.out.println(indicators);
         }
     }
 
