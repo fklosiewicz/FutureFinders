@@ -73,12 +73,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     }
 
     public void results(View view) {
-        if(states.isEmpty()) {
-            AlertDialog.Builder noStates = new AlertDialog.Builder(view.getContext());
-            noStates.setMessage("Please select at least one state").setPositiveButton("Okay", null);
-            noStates.show();
-        }
-        else if(indicators.isEmpty()) {
+        if(indicators.isEmpty()) {
             AlertDialog.Builder noStates = new AlertDialog.Builder(view.getContext());
             noStates.setMessage("Please select at least one indicator").setPositiveButton("Okay", null);
             noStates.show();

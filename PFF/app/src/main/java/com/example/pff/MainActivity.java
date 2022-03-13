@@ -203,6 +203,13 @@ public class MainActivity<color> extends AppCompatActivity {
     }
 
     public void indicators(View view) {
+        if(states.isEmpty()) {//Make sure at least one state is selected
+            AlertDialog.Builder noStates = new AlertDialog.Builder(view.getContext());
+            noStates.setMessage("Please select at least one state").setPositiveButton("Okay", null);
+            noStates.show();
+            return;
+        }
+
         Bundle bundle = new Bundle();
         bundle.putIntegerArrayList("States", states);
         bundle.putIntegerArrayList("Indicators", indicators);
