@@ -320,18 +320,24 @@ public class MainActivity<color> extends AppCompatActivity {
         builder.setView(lay);
         final boolean[] success = {false};
 
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
+
+        builder.setNegativeButton("Login", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 for (User t : users) {
                     if(login.getText().toString().equals(t.username) && pass.getText().toString().equals(t.password)) {
-                            AlertDialog.Builder no_delete = new AlertDialog.Builder(view.getContext());
-                            no_delete.setMessage("Successful Login!").setPositiveButton("Okay", null);
-                            no_delete.show();
-                            activeUser = t;//Capture the logged in user
-                            findViewById(R.id.Account).setVisibility(View.VISIBLE);
-                            findViewById(R.id.Logout).setVisibility(View.VISIBLE);
-                            success[0] = true;
-                            return;
+                        AlertDialog.Builder no_delete = new AlertDialog.Builder(view.getContext());
+                        no_delete.setMessage("Successful Login!").setPositiveButton("Okay", null);
+                        no_delete.show();
+                        activeUser = t;//Capture the logged in user
+                        findViewById(R.id.Account).setVisibility(View.VISIBLE);
+                        findViewById(R.id.Logout).setVisibility(View.VISIBLE);
+                        success[0] = true;
+                        return;
                     }
                 }
                 if(success[0] == false) {
@@ -342,13 +348,7 @@ public class MainActivity<color> extends AppCompatActivity {
                 }
             }
         });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel();
-            }
-        });
-        builder.show();
+        builder.show().getButton(AlertDialog.BUTTON_NEGATIVE).requestFocus();
     }
 
     public void account(View view) {
