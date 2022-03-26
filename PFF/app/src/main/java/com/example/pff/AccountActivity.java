@@ -77,4 +77,10 @@ public class AccountActivity<color> extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(this, "Note: changes not saved", Toast.LENGTH_LONG).show();
+    }
 }

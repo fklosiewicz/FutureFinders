@@ -608,8 +608,9 @@ public class ResultsActivity<color> extends AppCompatActivity {
 
     }
 
-
-    public void back(View view) {
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
         Bundle bundle = new Bundle();
         bundle.putIntegerArrayList("States", states);
         bundle.putIntegerArrayList("Indicators", indicators);

@@ -89,7 +89,9 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         }
     }
 
-    public void backToStates(View view) {
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("States", states);
         bundle.putIntegerArrayList("Indicators", indicators);
