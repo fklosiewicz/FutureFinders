@@ -616,9 +616,16 @@ public class ResultsActivity<color> extends AppCompatActivity {
         if(activeUser != null){
             bundle.putSerializable("activeUser", activeUser);
         }
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        if(activeUser!=null){
+            Intent intent = new Intent(this, IndicatorActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+
     }
 //    public void init() {
 //
