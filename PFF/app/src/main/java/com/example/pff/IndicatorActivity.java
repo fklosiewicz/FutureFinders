@@ -89,6 +89,10 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         }
     }
 
+    public void onBackPressed(View v) {
+        onBackPressed();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

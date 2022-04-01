@@ -161,7 +161,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/purp"
-        android:onClick="back"
+        android:onClick="onBackPressed"
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -8,6 +8,77 @@
     android:orientation="horizontal"
     tools:context=".AccountActivity">
 
+    <TextView
+        android:id="@+id/searchText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="548dp"
+        android:layout_marginTop="4dp"
+        android:text="Prior Searches"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/option1"
+        android:layout_width="99dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="544dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/purp"
+        android:onClick="results"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/option2"
+        android:layout_width="99dp"
+        android:layout_height="56dp"
+        android:backgroundTint="@color/purp"
+        android:onClick="results"
+        android:text="2"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/option1"
+        app:layout_constraintTop_toBottomOf="@+id/option1"  />
+
+    <Button
+        android:id="@+id/option3"
+        android:layout_width="99dp"
+        android:layout_height="56dp"
+        android:backgroundTint="@color/purp"
+        android:onClick="results"
+        android:text="3"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/option2"
+        app:layout_constraintTop_toBottomOf="@+id/option2" />
+
+    <Button
+        android:id="@+id/option4"
+        android:layout_width="99dp"
+        android:layout_height="56dp"
+        android:backgroundTint="@color/purp"
+        android:onClick="results"
+        android:text="4"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/option3"
+        app:layout_constraintTop_toBottomOf="@+id/option3" />
+
+    <Button
+        android:id="@+id/option5"
+        android:layout_width="99dp"
+        android:layout_height="56dp"
+        android:backgroundTint="@color/purp"
+        android:onClick="results"
+        android:text="5"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/option4"
+        app:layout_constraintTop_toBottomOf="@+id/option4" />
+
     <EditText
         android:id="@+id/textPassword2"
         android:layout_width="wrap_content"

@@ -10,11 +10,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pff.design.User;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -426,8 +433,38 @@ public class ResultsActivity<color> extends AppCompatActivity {
             }
         }
 
-
-
+        // saving results
+        if(activeUser != null && !getIntent().getExtras().containsKey("priorPage") && activeUser.indicators.size() < 5) {
+            activeUser.indicators.add(indicators);
+            activeUser.states.add(states);
+            String p = this.getApplicationInfo().dataDir + "/appdata.dat";
+            ArrayList<User> users = new ArrayList<User>();
+            try {
+                FileInputStream fis = new FileInputStream(p);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                users = (ArrayList<User>) ois.readObject();
+                fis.close();
+                ois.close();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            for(int x = 0; x < users.size(); x++) {
+                if(users.get(x).username.equals(activeUser.username)) {
+                    users.remove(x);
+                    break;
+                }
+            }
+            users.add(activeUser);
+            try {
+                FileOutputStream fos = new FileOutputStream(this.getApplicationInfo().dataDir + "/appdata.dat");
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(users);
+                oos.close();
+                fos.close();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
 
     }
 
@@ -546,6 +583,10 @@ public class ResultsActivity<color> extends AppCompatActivity {
                 break;
         }
         return s;
+    }
+
+    public void onBackPressed(View v) {
+        onBackPressed();
     }
 
     @Override
