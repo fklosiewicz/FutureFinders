@@ -60,13 +60,13 @@ public class ResultsActivity<color> extends AppCompatActivity {
                     info.put("StateTax", resultSet.getString("StateTax"));
                     info.put("Happiness", resultSet.getString("Happiness"));
 
-                    info.put("IncomeTax", resultSet.getString("IncomeTax"));
+                    info.put("SafetyRanking", resultSet.getString("SafetyRanking"));
                     info.put("Entertainment", resultSet.getString("Entertainment"));
                     info.put("Healthcare", resultSet.getString("Healthcare"));
                     info.put("AirQuality", resultSet.getString("AirQuality"));
                     info.put("Education", resultSet.getString("Education"));
                     info.put("CoLIndex", resultSet.getString("CoLIndex"));
-                    info.put("CoLRanking", resultSet.getString("CoLRanking"));
+                    info.put("AvgHouse", resultSet.getString("AvgHouse"));
 
                 }
             } catch (Exception e) {
@@ -219,17 +219,11 @@ public class ResultsActivity<color> extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//<<<<<<< HEAD
-//
-//
-//=======
-//>>>>>>> 99cc7919bd4f449b3c8c5e1232dbf4d8e3d6dc83
 
         states = getIntent().getExtras().getIntegerArrayList("States");
         indicators = getIntent().getExtras().getIntegerArrayList("Indicators");
         activeUser = getIntent().getExtras().containsKey("activeUser") ? (User) getIntent().getExtras().getSerializable("activeUser") : null;
 
-//<<<<<<< HEAD
 
         //This will route to the correct results page depending on whether logged in or not
         if(activeUser == null){
@@ -239,14 +233,6 @@ public class ResultsActivity<color> extends AppCompatActivity {
         }
 
 
-//=======
-//        if(states.size()==3){  //This won't work, because members can choose 1 state or 2; see above
-//            setContentView(R.layout.results);
-//        }
-//        else{
-//            setContentView(R.layout.guest_results);
-//        }
-//>>>>>>> 99cc7919bd4f449b3c8c5e1232dbf4d8e3d6dc83
         LayoutInflater li = getLayoutInflater();
         View v1 = li.inflate(R.layout.activity_main, null);
         View v2 = li.inflate(R.layout.indicators, null);
@@ -477,8 +463,8 @@ public class ResultsActivity<color> extends AppCompatActivity {
         else if(buttonName.equals("State Income Tax Rate")){
             return "Tax";
         }
-        else if(buttonName.equals("State Income Tax Bracket")){
-            return "Tax Bracket";
+        else if(buttonName.equals("Safety Ranking")){
+            return "Safety";
         }
         else if(buttonName.equals("Entertainment, Recreation, and Nightlife Ranking")){
             return "Fun";
@@ -495,6 +481,9 @@ public class ResultsActivity<color> extends AppCompatActivity {
         else if(buttonName.equals("Cost of Living Index")){
             return "Living Index";
         }
+        else if(buttonName.equals("Average House Cost")){
+            return "Avg House Cost";
+        }
         //Cost of Living Ranking
         return "Living Rank";
 
@@ -510,8 +499,8 @@ public class ResultsActivity<color> extends AppCompatActivity {
         else if(buttonName.equals("State Income Tax Rate")){
             return "StateTax";
         }
-        else if(buttonName.equals("State Income Tax Bracket")){
-            return "IncomeTax";
+        else if(buttonName.equals("Safety Ranking")){
+            return "SafetyRanking";
         }
         else if(buttonName.equals("Entertainment, Recreation, and Nightlife Ranking")){
             return "Entertainment";
@@ -527,6 +516,9 @@ public class ResultsActivity<color> extends AppCompatActivity {
         }
         else if(buttonName.equals("Cost of Living Index")){
             return "CoLIndex";
+        }
+        else if(buttonName.equals("Average House Cost")){
+            return "AvgHouse";
         }
         //Cost of Living Ranking
         return "CoLRanking";

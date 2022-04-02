@@ -248,9 +248,11 @@ public class MainActivity<color> extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // Go to Results Page
-                    indicators.add(R.id.wage);
-                    indicators.add(R.id.happy);
-                    indicators.add(R.id.tax_rate);
+                    if(indicators.isEmpty()){//only add these if they are not already in the list
+                        indicators.add(R.id.wage);
+                        indicators.add(R.id.happy);
+                        indicators.add(R.id.tax_rate);
+                    }
 
                     System.out.println(indicators);
 
