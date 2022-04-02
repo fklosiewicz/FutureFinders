@@ -14,8 +14,17 @@
     <string name="education">Education Ranking</string>
     <string name="living_index">Cost of Living Index</string>
     <string name="living_rank">Cost of Living Ranking</string>
+    <string name="safety">Safety Ranking</string>
+    <string name="house_cost">Average House Cost</string>
     <string name="back_to_state">Back to States</string>
     <string name="see_results">See Results</string>
     <string name="login_reminder">You haven\'t logged in. Please login to enjoy selecting your own indicators.</string>
+    <!-- Need to update each specific explanation-->
+    <string name="explanation1">Explanation 1</string>
+    <string name="explanation2">Explanation 2</string>
+    <string name="explanation3">Explanation 3</string>
+    <string name="explanation4">Explanation 4</string>
+    <string name="explanation5">Explanation 5</string>
+
 
 </resources>

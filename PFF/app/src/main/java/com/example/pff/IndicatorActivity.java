@@ -23,6 +23,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     public ArrayList<Integer> indicators;
     public User activeUser;//so that the user can remain logged in when going back
     public final int IND_MEMBER = 5; // The cap number of indicators.
+    public int question;
     private ImageView imageView;
     private TableRow row1;
     private TableRow row2;
@@ -36,6 +37,12 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     private CheckBox education;
     private CheckBox living_index;
     private CheckBox living_ranking;
+    private Button question1;
+    private Button question2;
+    private Button question3;
+    private Button question4;
+    private Button question5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,37 @@ public class IndicatorActivity<color> extends AppCompatActivity {
             CheckBox c = findViewById(id);
             c.setChecked(true);
         }
+
+        question1 = (Button) findViewById(R.id.question1);
+        question2 = (Button) findViewById(R.id.question2);
+        question3 = (Button) findViewById(R.id.question3);
+        question4 = (Button) findViewById(R.id.question4);
+        question5 = (Button) findViewById(R.id.question5);
+
+        question1.setOnClickListener(view -> {
+            question=1;
+            OpenExplanations();
+        });
+
+        question2.setOnClickListener(view -> {
+            question=2;
+            OpenExplanations();
+        });
+
+        question3.setOnClickListener(view -> {
+            question=3;
+            OpenExplanations();
+        });
+
+        question4.setOnClickListener(view -> {
+            question=4;
+            OpenExplanations();
+        });
+
+        question5.setOnClickListener(view -> {
+            question=5;
+            OpenExplanations();
+        });
     }
 
     // for later: add cap to number of indicators that can be added to list based on if logged in or not
@@ -104,5 +142,18 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+    private void OpenExplanations(){
+        Bundle bundle = new Bundle();
+//        bundle.putStringArrayList("States", states);
+//        bundle.putIntegerArrayList("Indicators", indicators);
+        bundle.putSerializable("activeUser", activeUser);
+        bundle.putInt("question",question);
+        Intent intent = new Intent(IndicatorActivity.this, ExplanationActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+
 
 }

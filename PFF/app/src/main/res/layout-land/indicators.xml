@@ -19,20 +19,22 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="600dp"
-        android:layout_height="290dp"
-        android:layout_marginStart="75dp"
+        android:id="@+id/cardView"
+        android:layout_width="610dp"
+        android:layout_height="340dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="65dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginBottom="20dp"
+        app:cardBackgroundColor="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <TableLayout
             android:layout_width="600dp"
-            android:layout_height="303dp">
+            android:layout_height="343dp">
 
             <TableRow
                 android:id="@+id/row1"
@@ -44,84 +46,150 @@
                     android:id="@+id/wage"
                     android:layout_width="120dp"
                     android:layout_height="145dp"
+                    android:layout_gravity="fill"
                     android:adjustViewBounds="true"
-                    android:onClick="checked"
 
+                    android:alpha="0.9"
+                    android:background="@drawable/salary_1"
+                    android:onClick="checked"
                     android:scaleType="fitCenter"
                     android:text="@string/wage"
-                    android:background="@drawable/salary_1"
                     android:textColor="@color/antique_white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:alpha="0.7"
-                    android:layout_gravity="fill"/>
-
+                    android:textStyle="bold" />
 
 
                 <CheckBox
                     android:id="@+id/happy"
                     android:layout_width="120dp"
                     android:layout_height="145dp"
+                    android:layout_gravity="fill"
                     android:adjustViewBounds="false"
-                    android:onClick="checked"
 
+                    android:alpha="0.9"
+                    android:background="@drawable/happiness_1"
+                    android:onClick="checked"
                     android:scaleType="fitCenter"
                     android:text="@string/happiness"
-                    android:background="@drawable/happiness_1"
                     android:textColor="@color/antique_white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:alpha="0.8"
-                    android:layout_gravity="fill"/>
+                    android:textStyle="bold" />
 
 
                 <CheckBox
                     android:id="@+id/tax_rate"
                     android:layout_width="120dp"
                     android:layout_height="145dp"
+                    android:layout_gravity="fill"
                     android:adjustViewBounds="false"
-                    android:onClick="checked"
 
+                    android:alpha="0.9"
+                    android:background="@drawable/tax_rate_3"
+                    android:onClick="checked"
                     android:scaleType="fitCenter"
                     android:text="@string/state_tax_rate"
-                    android:background="@drawable/tax_rate_3"
                     android:textColor="@color/antique_white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:alpha="0.7"
-                    android:layout_gravity="fill"/>
+                    android:textStyle="bold" />
 
                 <CheckBox
                     android:id="@+id/tax_bracket"
                     android:layout_width="120dp"
                     android:layout_height="145dp"
+                    android:layout_gravity="fill"
                     android:adjustViewBounds="false"
-                    android:onClick="checked"
 
+                    android:alpha="0.9"
+                    android:background="@drawable/safety_3"
+                    android:onClick="checked"
                     android:scaleType="fitCenter"
-                    android:text="@string/state_tax_bracket"
-                    android:background="@drawable/tax_bracket_3"
+                    android:text="@string/safety"
                     android:textColor="@color/antique_white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:alpha="0.8"
-                    android:layout_gravity="fill"/>
+                    android:textStyle="bold" />
 
                 <CheckBox
                     android:id="@+id/entertainment"
                     android:layout_width="120dp"
                     android:layout_height="145dp"
+                    android:layout_gravity="fill"
                     android:adjustViewBounds="false"
-                    android:onClick="checked"
 
+                    android:alpha="0.9"
+                    android:background="@drawable/entertainment_3"
+                    android:onClick="checked"
                     android:scaleType="fitCenter"
                     android:text="@string/entertainment"
-                    android:background="@drawable/entertainment_3"
                     android:textColor="@color/antique_white"
                     android:textSize="13sp"
+                    android:textStyle="bold" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="600dp"
+                android:layout_height="40dp" >
+
+                <Button
+                    android:id="@+id/question1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/question_mark"
+                    android:text="\?"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    android:alpha="0.7"
-                    android:layout_gravity="fill"/>
+                    android:onClick="explanations1"
+                    tools:layout_editor_absoluteX="97dp"
+                    tools:layout_editor_absoluteY="16dp" />
+
+                <Button
+                    android:id="@+id/question2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/question_mark"
+                    android:text="\?"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="97dp"
+                    tools:layout_editor_absoluteY="16dp" />
+
+                <Button
+                    android:id="@+id/question3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/question_mark"
+                    android:text="\?"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="97dp"
+                    tools:layout_editor_absoluteY="16dp" />
+
+                <Button
+                    android:id="@+id/question4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/question_mark"
+                    android:text="\?"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="97dp"
+                    tools:layout_editor_absoluteY="16dp" />
+
+                <Button
+                    android:id="@+id/question5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/question_mark"
+                    android:text="\?"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="97dp"
+                    tools:layout_editor_absoluteY="16dp" />
 
             </TableRow>
 
@@ -134,89 +202,90 @@
                     android:id="@+id/healthcare"
                     android:layout_width="120dp"
                     android:layout_height="145dp"
+                    android:layout_gravity="fill"
                     android:adjustViewBounds="false"
-                    android:onClick="checked"
 
+                    android:alpha="0.9"
+                    android:background="@drawable/health_care_1"
+                    android:onClick="checked"
                     android:scaleType="fitCenter"
                     android:text="@string/healthcare"
-                    android:background="@drawable/health_care_1"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:alpha="0.7"
-                    android:layout_gravity="fill"/>
+                    android:textStyle="bold" />
 
 
                 <CheckBox
                     android:id="@+id/air_water"
                     android:layout_width="120dp"
                     android:layout_height="145dp"
+                    android:layout_gravity="fill"
                     android:adjustViewBounds="false"
-                    android:onClick="checked"
 
+                    android:alpha="0.9"
+                    android:background="@drawable/air_water"
+                    android:onClick="checked"
                     android:scaleType="fitCenter"
                     android:text="@string/air_and_water"
-                    android:background="@drawable/air_water"
                     android:textColor="@color/antique_white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:alpha="0.9"
-                    android:layout_gravity="fill"/>
+                    android:textStyle="bold" />
 
                 <CheckBox
                     android:id="@+id/education"
 
                     android:layout_width="120dp"
                     android:layout_height="145dp"
+                    android:layout_gravity="fill"
                     android:adjustViewBounds="false"
-                    android:onClick="checked"
 
+                    android:alpha="0.9"
+                    android:background="@drawable/education_1"
+                    android:onClick="checked"
                     android:scaleType="fitCenter"
                     android:text="@string/education"
-                    android:background="@drawable/education_1"
                     android:textColor="@color/antique_white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:alpha="0.9"
-                    android:layout_gravity="fill"/>
+                    android:textStyle="bold" />
 
 
                 <CheckBox
                     android:id="@+id/living_index"
                     android:layout_width="120dp"
                     android:layout_height="145dp"
+                    android:layout_gravity="fill"
                     android:adjustViewBounds="false"
-                    android:onClick="checked"
 
+                    android:alpha="0.9"
+                    android:background="@drawable/cost_of_living_index_3"
+                    android:onClick="checked"
                     android:scaleType="fitCenter"
                     android:text="@string/living_index"
-                    android:background="@drawable/cost_of_living_index_3"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:alpha="0.8"
-                    android:layout_gravity="fill"/>
+                    android:textStyle="bold" />
 
 
                 <CheckBox
                     android:id="@+id/living_ranking"
                     android:layout_width="120dp"
                     android:layout_height="145dp"
+                    android:layout_gravity="fill"
                     android:adjustViewBounds="false"
-                    android:onClick="checked"
 
-                    android:scaleType="fitCenter"
-                    android:text="@string/living_rank"
+                    android:alpha="0.9"
                     android:background="@drawable/cost_of_living_ranking_3"
+                    android:onClick="checked"
+                    android:scaleType="fitCenter"
+                    android:text="@string/house_cost"
                     android:textColor="@color/yellow"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:alpha="0.7"
-                    android:layout_gravity="fill"/>
+                    android:textStyle="bold" />
 
             </TableRow>
 
         </TableLayout>
+
     </androidx.cardview.widget.CardView>
 
     <Button
@@ -235,12 +304,13 @@
         android:id="@+id/see_results"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="167dp"
-        android:text="@string/see_results"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="164dp"
         android:onClick="results"
+        android:text="@string/see_results"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
