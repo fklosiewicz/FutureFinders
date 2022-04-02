@@ -77,4 +77,46 @@ public class AccountActivity<color> extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+    public void results(View v) {
+        int x = -1;
+        if(v.getId() == R.id.option1) {
+            x = 0;
+        }
+        else if(v.getId() == R.id.option2) {
+            x = 1;
+        }
+        else if(v.getId() == R.id.option3) {
+            x = 2;
+        }
+        else if(v.getId() == R.id.option4) {
+            x = 3;
+        }
+        else {
+            x = 4;
+        }
+
+        if(activeUser.indicators.size() <= x) {
+            AlertDialog.Builder noStates = new AlertDialog.Builder(v.getContext());
+            noStates.setMessage("Please select a valid prior search").setPositiveButton("Okay", null);
+            noStates.show();
+            return;
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putIntegerArrayList("States", activeUser.states.get(x));
+        bundle.putIntegerArrayList("Indicators", activeUser.indicators.get(x));
+        bundle.putSerializable("activeUser", activeUser);
+        bundle.putString("priorPage", "accountActivity");
+        Intent intent = new Intent(this, ResultsActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(this, "Note: changes not saved", Toast.LENGTH_LONG).show();
+    }
 }

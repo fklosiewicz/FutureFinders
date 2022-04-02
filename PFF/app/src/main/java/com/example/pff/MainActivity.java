@@ -184,9 +184,7 @@ public class MainActivity<color> extends AppCompatActivity {
             if(!states.contains(b.getId())) {
                 if(!(states.size()<CAP_MEMBER)){//If the cap is reached, extort
                     AlertDialog.Builder cap_reached = new AlertDialog.Builder(this);
-                    cap_reached.setMessage("Maximum " + CAP_MEMBER + " states for members.\nTo " +
-                            "select more states, send 2 BTC to 0xFUTURE_FINDERS, " +
-                            "and delete app.").setPositiveButton("Okay", null);
+                    cap_reached.setMessage("Maximum " + CAP_MEMBER + " states for members.").setPositiveButton("Okay", null);
                     cap_reached.show();
                     return;
                 }

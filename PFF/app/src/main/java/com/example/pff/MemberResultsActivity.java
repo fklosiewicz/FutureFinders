@@ -10,18 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pff.design.User;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -31,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class ResultsActivity<color> extends AppCompatActivity {
+public class MemberResultsActivity<color> extends AppCompatActivity {
 
     public ArrayList<Integer> states;
     public ArrayList<Integer> indicators;
@@ -49,8 +42,7 @@ public class ResultsActivity<color> extends AppCompatActivity {
             try (Connection connection = DriverManager.getConnection(URL, USER, PASS)) {
                 System.out.println("Connection valid: " + connection.isValid(5));
 
-                //String sql = "SELECT Wage, Happiness, StateTax FROM Indicators WHERE StateABBR = '" + strings[0] + "';";
-                String sql = "SELECT * FROM Indicators WHERE StateABBR = '" + strings[0] + "';";
+                String sql = "SELECT Wage, Happiness, StateTax FROM Indicators WHERE StateABBR = '" + strings[0] + "';";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet resultSet = statement.executeQuery();
 
@@ -59,15 +51,6 @@ public class ResultsActivity<color> extends AppCompatActivity {
                     info.put("Wage", resultSet.getString("Wage"));
                     info.put("StateTax", resultSet.getString("StateTax"));
                     info.put("Happiness", resultSet.getString("Happiness"));
-
-                    info.put("IncomeTax", resultSet.getString("IncomeTax"));
-                    info.put("Entertainment", resultSet.getString("Entertainment"));
-                    info.put("Healthcare", resultSet.getString("Healthcare"));
-                    info.put("AirQuality", resultSet.getString("AirQuality"));
-                    info.put("Education", resultSet.getString("Education"));
-                    info.put("CoLIndex", resultSet.getString("CoLIndex"));
-                    info.put("CoLRanking", resultSet.getString("CoLRanking"));
-
                 }
             } catch (Exception e) {
                 Log.e("InfoAsyncTask", "Error reading information", e);
@@ -78,138 +61,26 @@ public class ResultsActivity<color> extends AppCompatActivity {
         @Override
         protected void onPostExecute(Map<String, String> result) {
             if (!result.isEmpty()) {
-                //guest user results data
-                if(activeUser==null) {
-                    TextView State1 = findViewById(R.id.textView6);
-                    TextView State2 = findViewById(R.id.textView11);
-                    if (result.get("State").equals(State1.getText().toString())) {
-                        TextView Indicator1 = findViewById(R.id.textView7);
-                        Indicator1.setText(result.get("Wage"));
-                        TextView Indicator2 = findViewById(R.id.textView8);
-                        String tax = result.get("StateTax") + "%";
-                        Indicator2.setText(tax);
-                        TextView Indicator3 = findViewById(R.id.textView9);
-                        Indicator3.setText(result.get("Happiness"));
-                    }
-                    if (result.get("State").equals(State2.getText().toString())) {
-                        TextView Indicator1 = findViewById(R.id.textView12);
-                        Indicator1.setText(result.get("Wage"));
-                        TextView Indicator2 = findViewById(R.id.textView13);
-                        String tax = result.get("StateTax") + "%";
-                        Indicator2.setText(tax);
-                        TextView Indicator3 = findViewById(R.id.textView14);
-                        Indicator3.setText(result.get("Happiness"));
-                    }
-                }
-                //member user results data
-                else{
-                    TextView State1 = findViewById(R.id.textView6);
-                    TextView State2 = findViewById(R.id.textView11);
-                    TextView State3 = findViewById(R.id.textView16);
-                    String[] ind = getSelectedIndicators();
+                TextView State1 = findViewById(R.id.textView6);
+                TextView State2 = findViewById(R.id.textView11);
+                if(result.get("State").equals(State1.getText().toString())) {
+                    TextView Indicator1 = findViewById(R.id.textView7);
+                    Indicator1.setText(result.get("Wage"));
+                    TextView Indicator2 = findViewById(R.id.textView8);
+                    String tax = result.get("StateTax") + "%";
+                    Indicator2.setText(tax);
+                    TextView Indicator3 = findViewById(R.id.textView9);
+                    Indicator3.setText(result.get("Happiness"));
 
-                    if (result.get("State").equals(State1.getText().toString())) {
-                        TextView Indicator1 = findViewById(R.id.textView7);
-                        TextView Indicator2 = findViewById(R.id.textView8);
-                        TextView Indicator3 = findViewById(R.id.textView9);
-                        TextView Indicator4 = findViewById(R.id.textView10);
-                        TextView Indicator5 = findViewById(R.id.textView22);
-                        switch (indicators.size()){
-                            case 1:
-                                Indicator1.setText(result.get(ind[0]));
-                                break;
-                            case 2:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                break;
-                            case 3:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                Indicator3.setText(result.get(ind[2]));
-                                break;
-                            case 4:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                Indicator3.setText(result.get(ind[2]));
-                                Indicator4.setText(result.get(ind[3]));
-                                break;
-                            case 5:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                Indicator3.setText(result.get(ind[2]));
-                                Indicator4.setText(result.get(ind[3]));
-                                Indicator5.setText(result.get(ind[4]));
-                                break;
-                        }
-                    }
-                    if (result.get("State").equals(State2.getText().toString())) {
-                        TextView Indicator1 = findViewById(R.id.textView12);
-                        TextView Indicator2 = findViewById(R.id.textView13);
-                        TextView Indicator3 = findViewById(R.id.textView14);
-                        TextView Indicator4 = findViewById(R.id.textView15);
-                        TextView Indicator5 = findViewById(R.id.textView23);
-                        switch (indicators.size()){
-                            case 1:
-                                Indicator1.setText(result.get(ind[0]));
-                                break;
-                            case 2:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                break;
-                            case 3:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                Indicator3.setText(result.get(ind[2]));
-                                break;
-                            case 4:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                Indicator3.setText(result.get(ind[2]));
-                                Indicator4.setText(result.get(ind[3]));
-                                break;
-                            case 5:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                Indicator3.setText(result.get(ind[2]));
-                                Indicator4.setText(result.get(ind[3]));
-                                Indicator5.setText(result.get(ind[4]));
-                                break;
-                        }
-                    }
-                    if (result.get("State").equals(State3.getText().toString())) {
-                        TextView Indicator1 = findViewById(R.id.textView17);
-                        TextView Indicator2 = findViewById(R.id.textView18);
-                        TextView Indicator3 = findViewById(R.id.textView19);
-                        TextView Indicator4 = findViewById(R.id.textView20);
-                        TextView Indicator5 = findViewById(R.id.textView24);
-                        switch (indicators.size()){
-                            case 1:
-                                Indicator1.setText(result.get(ind[0]));
-                                break;
-                            case 2:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                break;
-                            case 3:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                Indicator3.setText(result.get(ind[2]));
-                                break;
-                            case 4:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                Indicator3.setText(result.get(ind[2]));
-                                Indicator4.setText(result.get(ind[3]));
-                                break;
-                            case 5:
-                                Indicator1.setText(result.get(ind[0]));
-                                Indicator2.setText(result.get(ind[1]));
-                                Indicator3.setText(result.get(ind[2]));
-                                Indicator4.setText(result.get(ind[3]));
-                                Indicator5.setText(result.get(ind[4]));
-                                break;
-                        }
-                    }
+                }
+                if(result.get("State").equals(State2.getText().toString())) {
+                    TextView Indicator1 = findViewById(R.id.textView12);
+                    Indicator1.setText(result.get("Wage"));
+                    TextView Indicator2 = findViewById(R.id.textView13);
+                    String tax = result.get("StateTax") + "%";
+                    Indicator2.setText(tax);
+                    TextView Indicator3 = findViewById(R.id.textView14);
+                    Indicator3.setText(result.get("Happiness"));
                 }
             }
         }
@@ -433,39 +304,276 @@ public class ResultsActivity<color> extends AppCompatActivity {
             }
         }
 
-        // saving results
-        if(activeUser != null && !getIntent().getExtras().containsKey("priorPage") && activeUser.indicators.size() < 5) {
-            activeUser.indicators.add(indicators);
-            activeUser.states.add(states);
-            String p = this.getApplicationInfo().dataDir + "/appdata.dat";
-            ArrayList<User> users = new ArrayList<User>();
-            try {
-                FileInputStream fis = new FileInputStream(p);
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                users = (ArrayList<User>) ois.readObject();
-                fis.close();
-                ois.close();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+
+
+//        init();
+
+        /*LayoutInflater li = getLayoutInflater();
+=======
+>>>>>>> origin/master
+        View v1 = li.inflate(R.layout.activity_main, null);
+        View v2 = li.inflate(R.layout.indicators, null);
+
+        //guest user
+        if(activeUser==null) {
+            //top row, indicator names
+            TextView Indicator1 = findViewById(R.id.textView2);
+            Indicator1.setText("Salary");
+
+<<<<<<< HEAD
+//    public void init() {
+//
+//        LayoutInflater li = getLayoutInflater();
+//        View v1 = li.inflate(R.layout.activity_main, null);
+//        View v2 = li.inflate(R.layout.indicators, null);
+//
+//        TableLayout stk = (TableLayout) findViewById(R.id.table_main);
+//
+//        if(activeUser==null){
+//            //indicator header for guest
+//            TableRow tbrow0 = new TableRow(this);
+//            TextView tv0 = new TextView(this);
+//            tv0.setText("   ");
+//            tv0.setTextColor(Color.BLACK);
+//            tbrow0.addView(tv0);
+//            TextView tv1 = new TextView(this);
+//            tv1.setText(" Salary ");
+//            tv1.setTextColor(Color.BLACK);
+//            tbrow0.addView(tv1);
+//            TextView tv2 = new TextView(this);
+//            tv2.setText(" Tax ");
+//            tv2.setTextColor(Color.BLACK);
+//            tbrow0.addView(tv2);
+//            TextView tv3 = new TextView(this);
+//            tv3.setText(" Happiness ");
+//            tv3.setTextColor(Color.BLACK);
+//            tbrow0.addView(tv3);
+//            stk.addView(tbrow0);
+//            //dynamic rows
+//            for (int i = 0; i < states.size(); i++) {
+//                TableRow tbrow = new TableRow(this);
+//                TextView t1v = new TextView(this);
+//                t1v.setText(((Button)v1.findViewById(states.get(i))).getText());
+//                t1v.setTextColor(Color.BLACK);
+//                t1v.setGravity(Gravity.CENTER);
+//                tbrow.addView(t1v);
+//                TextView t2v = new TextView(this);
+//
+//                new InfoAsyncTask().execute("CA");
+//
+//                t2v.setText("indicators" + i);
+//
+//                t2v.setTextColor(Color.BLACK);
+//                t2v.setGravity(Gravity.CENTER);
+//                tbrow.addView(t2v);
+//
+//
+//
+//                TextView t3v = new TextView(this);
+//                t3v.setText("indicator" + i);
+//                t3v.setTextColor(Color.BLACK);
+//                t3v.setGravity(Gravity.CENTER);
+//                tbrow.addView(t3v);
+//                TextView t4v = new TextView(this);
+//                t4v.setText("indicator" + i);
+//                t4v.setTextColor(Color.BLACK);
+//                t4v.setGravity(Gravity.CENTER);
+//                tbrow.addView(t4v);
+//                stk.addView(tbrow);
+//            }
+//        }
+//        else{
+//            int count = 0;
+//            //indicator header for member user
+//            TableRow tbrow0 = new TableRow(this);
+//            TextView tv0 = new TextView(this);
+//            tv0.setText("   ");
+//            tv0.setTextColor(Color.BLACK);
+//            tbrow0.addView(tv0);
+//            if(count<indicators.size()){
+//                TextView t1v = new TextView(this);
+//                t1v.setText(((Button)v2.findViewById(indicators.get(count))).getText());
+//                t1v.setTextColor(Color.BLACK);
+//                t1v.setGravity(Gravity.CENTER);
+//                tbrow0.addView(t1v);
+//                count++;
+//            }
+//            if(count<indicators.size()){
+//                TextView t2v = new TextView(this);
+//                t2v.setText(((Button)v2.findViewById(indicators.get(count))).getText());
+//                t2v.setTextColor(Color.BLACK);
+//                t2v.setGravity(Gravity.CENTER);
+//                tbrow0.addView(t2v);
+//                count++;
+//            }
+//            if(count<indicators.size()){
+//                TextView t3v = new TextView(this);
+//                t3v.setText(((Button)v2.findViewById(indicators.get(count))).getText());
+//                t3v.setTextColor(Color.BLACK);
+//                t3v.setGravity(Gravity.CENTER);
+//                tbrow0.addView(t3v);
+//                count++;
+//            }
+//            if(count<indicators.size()){
+//                TextView t4v = new TextView(this);
+//                t4v.setText(((Button)v2.findViewById(indicators.get(count))).getText());
+//                t4v.setTextColor(Color.BLACK);
+//                t4v.setGravity(Gravity.CENTER);
+//                tbrow0.addView(t4v);
+//                count++;
+//            }
+//            if(count<indicators.size()){
+//                TextView t5v = new TextView(this);
+//                t5v.setText(((Button)v2.findViewById(indicators.get(count))).getText());
+//                t5v.setTextColor(Color.BLACK);
+//                t5v.setGravity(Gravity.CENTER);
+//                tbrow0.addView(t5v);
+//            }
+//            stk.addView(tbrow0);
+//
+//            //dynamic rows
+//            for (int i = 0; i < states.size(); i++) {
+//                int count2 = 0;
+//                TableRow tbrow = new TableRow(this);
+//                TextView t0v = new TextView(this);
+//                t0v.setText(((Button)v1.findViewById(states.get(i))).getText());
+//                t0v.setTextColor(Color.BLACK);
+//                t0v.setGravity(Gravity.CENTER);
+//                tbrow.addView(t0v);
+//                if(count2<indicators.size()){
+//                    TextView t1v = new TextView(this);
+//                    t1v.setText("indi " + i);
+//                    t1v.setTextColor(Color.BLACK);
+//                    t1v.setGravity(Gravity.CENTER);
+//                    tbrow.addView(t1v);
+//                    count2++;
+//                }
+//                if(count2<indicators.size()){
+//                    TextView t2v = new TextView(this);
+//                    t2v.setText("indi " + i);
+//                    t2v.setTextColor(Color.BLACK);
+//                    t2v.setGravity(Gravity.CENTER);
+//                    tbrow.addView(t2v);
+//                    count2++;
+//                }
+//                if(count2<indicators.size()){
+//                    TextView t3v = new TextView(this);
+//                    t3v.setText("indi " + i);
+//                    t3v.setTextColor(Color.BLACK);
+//                    t3v.setGravity(Gravity.CENTER);
+//                    tbrow.addView(t3v);
+//                    count2++;
+//                }
+//                if(count2<indicators.size()){
+//                    TextView t4v = new TextView(this);
+//                    t4v.setText("indi " + i);
+//                    t4v.setTextColor(Color.BLACK);
+//                    t4v.setGravity(Gravity.CENTER);
+//                    tbrow.addView(t4v);
+//                    count2++;
+//                }
+//                if(count2<indicators.size()){
+//                    TextView t5v = new TextView(this);
+//                    t5v.setText("indi " + i);
+//                    t5v.setTextColor(Color.BLACK);
+//                    t5v.setGravity(Gravity.CENTER);
+//                    tbrow.addView(t5v);
+//                }
+//                stk.addView(tbrow);
+//            }
+//
+//        }
+//    }
+=======
+            TextView Indicator2 = findViewById(R.id.textView3);
+            Indicator2.setText("Tax");
+
+            TextView Indicator3 = findViewById(R.id.textView4);
+            Indicator3.setText("Happiness");
+
+            //the later rows, first column shows state, other columns show data
+            int count = 0;
+            if(count<states.size()){
+                TextView State1 = findViewById(R.id.textView6);
+                State1.setText(((Button) v1.findViewById(states.get(0))).getText());
+                String s1 = (String) ((Button) v1.findViewById(states.get(0))).getText();
+                new InfoAsyncTask().execute(s1);
+                count++;
             }
-            for(int x = 0; x < users.size(); x++) {
-                if(users.get(x).username.equals(activeUser.username)) {
-                    users.remove(x);
-                    break;
-                }
-            }
-            users.add(activeUser);
-            try {
-                FileOutputStream fos = new FileOutputStream(this.getApplicationInfo().dataDir + "/appdata.dat");
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(users);
-                oos.close();
-                fos.close();
-            } catch (Exception exception) {
-                exception.printStackTrace();
+            if(count<states.size()) {
+                TextView State2 = findViewById(R.id.textView11);
+                State2.setText(((Button) v1.findViewById(states.get(1))).getText());
+                String s2 = (String) ((Button) v1.findViewById(states.get(1))).getText();
+                new InfoAsyncTask().execute(s2);
             }
         }
 
+        //member user
+        else{
+            //first row shows indicator names, up to 5 indicators
+            int indCount = 0;
+            if(indCount<indicators.size()){
+                TextView Indicator1 = findViewById(R.id.textView2);
+                Indicator1.setText(((Button)v2.findViewById(indicators.get(indCount))).getText());
+                indCount++;
+            }
+            if(indCount<indicators.size()){
+                TextView Indicator2 = findViewById(R.id.textView3);
+                Indicator2.setText(((Button)v2.findViewById(indicators.get(indCount))).getText());
+                indCount++;
+            }
+            if(indCount<indicators.size()){
+                TextView Indicator3 = findViewById(R.id.textView4);
+                Indicator3.setText(((Button)v2.findViewById(indicators.get(indCount))).getText());
+                indCount++;
+            }
+            if(indCount<indicators.size()){
+                TextView Indicator4 = findViewById(R.id.textView5);
+                Indicator4.setText(((Button)v2.findViewById(indicators.get(indCount))).getText());
+                indCount++;
+            }
+            if(indCount<indicators.size()){
+                TextView Indicator5 = findViewById(R.id.textView6);
+                Indicator5.setText(((Button)v2.findViewById(indicators.get(indCount))).getText());
+            }
+
+            //the later rows, first column shows state, other columns show data
+            int stateCount = 0;
+            if(stateCount<states.size()){
+                TextView State1 = findViewById(R.id.textView6);
+                State1.setText(((Button) v1.findViewById(states.get(0))).getText());
+                String s1 = (String) ((Button) v1.findViewById(states.get(0))).getText();
+                new InfoAsyncTask().execute(s1);
+                stateCount++;
+            }
+            if(stateCount<states.size()) {
+                TextView State2 = findViewById(R.id.textView11);
+                State2.setText(((Button) v1.findViewById(states.get(1))).getText());
+                String s2 = (String) ((Button) v1.findViewById(states.get(1))).getText();
+                new InfoAsyncTask().execute(s2);
+                stateCount++;
+            }
+            if(stateCount<states.size()) {
+                TextView State3 = findViewById(R.id.textView16);
+                State3.setText(((Button) v1.findViewById(states.get(2))).getText());
+                String s3 = (String) ((Button) v1.findViewById(states.get(2))).getText();
+                new InfoAsyncTask().execute(s3);
+            }
+
+        }
+
+
+
+
+//        init();
+
+        /*LayoutInflater li = getLayoutInflater();
+        View v1 = li.inflate(R.layout.activity_main, null);
+        View v2 = li.inflate(R.layout.indicators, null);
+
+        ((TextView)findViewById(R.id.textView6)).setText(((Button)v1.findViewById(states.get(0))).getText());
+        ((TextView)findViewById(R.id.textView2)).setText(((CheckBox)v2.findViewById(indicators.get(0))).getText());
+        */
     }
 
     public String shortIndicatorName(String buttonName){
@@ -500,91 +608,6 @@ public class ResultsActivity<color> extends AppCompatActivity {
 
     }
 
-    ///converts button names into SQL indicator names
-    public String getIndicatorSQLID(String buttonName){
-        if(buttonName.equals("Annual Median Wage"))
-            return "Wage";
-        else if(buttonName.equals("Happiness Ranking")){
-            return "Happiness";
-        }
-        else if(buttonName.equals("State Income Tax Rate")){
-            return "StateTax";
-        }
-        else if(buttonName.equals("State Income Tax Bracket")){
-            return "IncomeTax";
-        }
-        else if(buttonName.equals("Entertainment, Recreation, and Nightlife Ranking")){
-            return "Entertainment";
-        }
-        else if(buttonName.equals("Healthcare Ranking")){
-            return "Healthcare";
-        }
-        else if(buttonName.equals("Air and Water Quality")){
-            return "AirQuality";
-        }
-        else if(buttonName.equals("Education Ranking")){
-            return "Education";
-        }
-        else if(buttonName.equals("Cost of Living Index")){
-            return "CoLIndex";
-        }
-        //Cost of Living Ranking
-        return "CoLRanking";
-    }
-
-    ///Button name gets passed into getIndicatorSQLID
-    ///and SQL indicator name is returned from method call and saved into c1,c2,c3,c4,c5
-    ///SQL indicator names are saved in String[] s and returned through this method
-    public String[] getSelectedIndicators(){
-        String[] s = new String[5];
-        String c1,c2, c3, c4, c5;
-        LayoutInflater li = getLayoutInflater();
-        View v2 = li.inflate(R.layout.indicators, null);
-        switch(indicators.size()){
-            case 1:
-                c1 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(0))).getText());
-                s[0]=c1;
-                break;
-            case 2:
-                c1 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(0))).getText());
-                s[0]=c1;
-                c2 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(1))).getText());
-                s[1]=c2;
-                break;
-            case 3:
-                c1 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(0))).getText());
-                s[0]=c1;
-                c2 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(1))).getText());
-                s[1]=c2;
-                c3 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(2))).getText());
-                s[2]=c3;
-                break;
-            case 4:
-                c1 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(0))).getText());
-                s[0]=c1;
-                c2 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(1))).getText());
-                s[1]=c2;
-                c3 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(2))).getText());
-                s[2]=c3;
-                c4 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(3))).getText());
-                s[3]=c4;
-                break;
-            case 5:
-                c1 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(0))).getText());
-                s[0]=c1;
-                c2 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(1))).getText());
-                s[1]=c2;
-                c3 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(2))).getText());
-                s[2]=c3;
-                c4 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(3))).getText());
-                s[3]=c4;
-                c5 = getIndicatorSQLID((String) ((CheckBox) v2.findViewById(indicators.get(4))).getText());
-                s[4]=c5;
-                break;
-        }
-        return s;
-    }
-
     public void onBackPressed(View v) {
         onBackPressed();
     }
@@ -598,16 +621,9 @@ public class ResultsActivity<color> extends AppCompatActivity {
         if(activeUser != null){
             bundle.putSerializable("activeUser", activeUser);
         }
-        if(activeUser!=null){
-            Intent intent = new Intent(this, IndicatorActivity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }else{
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
-
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 //    public void init() {
 //
