@@ -15,11 +15,27 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/**
+ * This class is the account activity controller class.
+ *
+ * @author Filip Klosiewicz
+ * @author Sofia Ozol
+ * @author Max Pandolpho
+ * @author Samantha Cheng
+ * @author Zining Ou
+ */
+
+
 public class AccountActivity<color> extends AppCompatActivity {
 
     public User activeUser;
     public ArrayList<User> users;
 
+    /**
+     * The onCreate will pass the previously logged in user to the account activity controller class and wait for input from the user.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +45,11 @@ public class AccountActivity<color> extends AppCompatActivity {
         users = (ArrayList<User>)intent.getExtras().getSerializable("Users");
     }
 
+    /**
+     * The update function allows an existing user to change their password and update the database of the application.
+     *
+     * @param view
+     */
     public void update(View view) {
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         EditText pwd = findViewById(R.id.textPassword2);
@@ -78,6 +99,13 @@ public class AccountActivity<color> extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * The results function lets the logged in user see the history of their previously made search results.
+     *
+     * The results function allows the user to access the past 5 search results made. The results get overwritten as more results are made.
+     *
+     * @param v
+     */
     public void results(View v) {
         int x = -1;
         if(v.getId() == R.id.option1) {

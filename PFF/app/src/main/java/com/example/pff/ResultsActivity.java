@@ -30,6 +30,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is the results activity controller class.
+ *
+ * The class is responsible for populating the table with the data according to the previously
+ * selected indicators and states on the landing page.
+
+ *
+ * The class does not have any other additional functionality other than behind-the-scenes work that
+ * is accomplished with multi-threadding.
+ *
+ * @author Filip Klosiewicz
+ * @author Sofia Ozol
+ * @author Max Pandolpho
+ * @author Samantha Cheng
+ * @author Zining Ou
+ */
 
 public class ResultsActivity<color> extends AppCompatActivity {
 
@@ -41,6 +57,18 @@ public class ResultsActivity<color> extends AppCompatActivity {
     private static final String USER = "finder";
     private static final String PASS = "1234abcd";
 
+    /**
+     * This is the main asynchronous thread sub-class that connects to the MariaDB database with the state-indicator data and populates the table according to the selected indicators beforehand.
+     *
+     * This is the core of the entire results activity controller, as it does not have any additional
+     * functions other than the back button.
+     *
+     * The thread takes a single String as a parameter (although it may take more), but the current development is designed to only
+     * take a single String parameter.
+     *
+     * One parameter, namely string[0], corresponds to the selected state abbreviation (such as 'NJ', 'NY', 'RI') and
+     * proceeds to execute the SQL query.
+     */
     @SuppressLint("StaticFieldLeak")
     public class InfoAsyncTask extends AsyncTask<String, Void, Map<String, String>> {
         protected Map<String, String> doInBackground(String... strings) {
@@ -75,6 +103,14 @@ public class ResultsActivity<color> extends AppCompatActivity {
             return info;
         }
 
+        /**
+         *  The post execute function is what takes place after the initial thread returns.
+         *
+         *  As mentioned above, this is where the behind the scenes work is performed, where multiple threads
+         *  are started and each of them populate the table separately, yet completely, within a second.
+         *
+         * @param result
+         */
         @Override
         protected void onPostExecute(Map<String, String> result) {
             if (!result.isEmpty()) {
@@ -216,6 +252,14 @@ public class ResultsActivity<color> extends AppCompatActivity {
     }
 
 
+    /**
+     * The onCreate function takes the special role in ensuring that the results table is dynamic.
+     *
+     * Depending on the number of states selected, the onCreate will determine this number, and change
+     * the size of the table view accordingly. The size can range from a 1x1 (1 state, 1 indicator) to a 3x5 (3 states, 5 indicators).
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -454,6 +498,12 @@ public class ResultsActivity<color> extends AppCompatActivity {
 
     }
 
+    /**
+     * The shortIndicatorName converts the longer button names to a shorter, more concise name, as to properly fit the table.
+     *
+     * @param buttonName
+     * @return
+     */
     public String shortIndicatorName(String buttonName){
         if(buttonName.equals("Annual Median Wage"))
             return "Salary";
@@ -489,6 +539,13 @@ public class ResultsActivity<color> extends AppCompatActivity {
 
     }
 
+    /**
+     * The behind-the-scene function that takes a String parameter of a button name and converts it
+     * to a corresponding SQL id.
+     *
+     * @param buttonName
+     * @return
+     */
     ///converts button names into SQL indicator names
     public String getIndicatorSQLID(String buttonName){
         if(buttonName.equals("Annual Median Wage"))
@@ -524,9 +581,15 @@ public class ResultsActivity<color> extends AppCompatActivity {
         return "CoLRanking";
     }
 
-    ///Button name gets passed into getIndicatorSQLID
-    ///and SQL indicator name is returned from method call and saved into c1,c2,c3,c4,c5
-    ///SQL indicator names are saved in String[] s and returned through this method
+    /**
+     * The getSelectedIndicators function is such that the button name gets passed into getIndicatorSQLID
+     * and SQL indicator name is returned from method call and saved into c1,c2,c3,c4,c5
+     *
+     * SQL indicator names are saved in 'String[] s' and returned through this method.
+     *
+     * @return
+     */
+
     public String[] getSelectedIndicators(){
         String[] s = new String[5];
         String c1,c2, c3, c4, c5;

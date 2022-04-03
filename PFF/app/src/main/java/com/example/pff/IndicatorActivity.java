@@ -17,6 +17,21 @@ import com.example.pff.design.User;
 
 import java.util.ArrayList;
 
+/**
+ * This class is the indicator activity controller class.
+ *
+ * The class is responsible for the selection of different indicators after the selection of the states
+ * already been made.
+ *
+ * There is a range of 10 different indicators that the member user may choose from.
+ *
+ * @author Filip Klosiewicz
+ * @author Sofia Ozol
+ * @author Max Pandolpho
+ * @author Samantha Cheng
+ * @author Zining Ou
+ */
+
 public class IndicatorActivity<color> extends AppCompatActivity {
 
     public ArrayList<String> states;
@@ -44,6 +59,13 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     private Button question5;
 
 
+    /**
+     * The onCreate populates the current activity with the active user, the user's selected states, and
+     * if it is not the first search of the user, the previously selected indicators are saved and
+     * remain checked.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +111,11 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         });
     }
 
+    /**
+     * The alert function that informs the user the maximum number of indicators to be selected is five.
+     *
+     * @param view
+     */
     // for later: add cap to number of indicators that can be added to list based on if logged in or not
     public void checked(View view) {
         CheckBox c = (CheckBox)view;
@@ -110,6 +137,13 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         }
     }
 
+    /**
+     * This function is the final step in seeing the results for a member user. It passes the currently
+     * selected states and the currently selected indicators for the active user, proceeds to launch
+     * the results activity controller class, and populates the table in that controller class.
+     *
+     * @param view
+     */
     public void results(View view) {
         if(indicators.isEmpty()) {
             AlertDialog.Builder noStates = new AlertDialog.Builder(view.getContext());
@@ -143,6 +177,13 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * The OpenExplanations function allows a member user to get a better insight of what each of the indicators signify.
+     *
+     * This feature is very helpful for newcomers to the application who might not know some of the indicators signify.
+     *
+     * Along with the tips, the source of the information is also shown to the user.
+     */
     private void OpenExplanations(){
         Bundle bundle = new Bundle();
 //        bundle.putStringArrayList("States", states);

@@ -3,6 +3,20 @@ package com.example.pff.design;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * This class is the user class.
+ *
+ * The class is mainly used for instantiating a new (serialized) user, which contains a username, password, as well
+ * as the user's own list of previous search results.
+ *
+ *
+ * @author Filip Klosiewicz
+ * @author Sofia Ozol
+ * @author Max Pandolpho
+ * @author Samantha Cheng
+ * @author Zining Ou
+ */
+
 public class User implements Serializable {
 
     private static final long serialVersionUID = 7866834523482281791L;

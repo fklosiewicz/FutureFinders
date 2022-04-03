@@ -33,6 +33,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+/**
+ * This class is the main activity class.
+ *
+ * @author Filip Klosiewicz
+ * @author Sofia Ozol
+ * @author Max Pandolpho
+ * @author Samantha Cheng
+ * @author Zining Ou
+ */
+
 public class MainActivity<color> extends AppCompatActivity {
 
     Button Register;
@@ -49,6 +59,11 @@ public class MainActivity<color> extends AppCompatActivity {
     private static final String USER = "finder";
     private static final String PASS = "1234abcd";
 
+    /**
+     * This sub-class creates an asynchronous thread that connects the application to the MariaDB database on the virtual machine.
+     *
+     * --- Primarily used to test connection. ---
+     */
     @SuppressLint("StaticFieldLeak")
     public class InfoAsyncTask extends AsyncTask<String, Void, Map<String, String>> {
         protected Map<String, String> doInBackground(String... strings) {
@@ -77,10 +92,22 @@ public class MainActivity<color> extends AppCompatActivity {
         }
     }
 
+    /**
+     * Temporary function that tests the connection to the VM.
+     *
+     * @param view
+     * @throws InterruptedException
+     */
     public void establishConnection(View view) throws InterruptedException {
         new InfoAsyncTask().execute("CA");
     }
 
+    /**
+     * When the application begins, onCreate, all pre-registered users will be loaded into the application.
+     * This functionality is to be extended, where the list of users will be stored on the virtual machine rather than application data.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -150,6 +177,11 @@ public class MainActivity<color> extends AppCompatActivity {
 
     }
 
+    /**
+     * The register function allows the user to create an account so that the user may access the member side features of the application, rather than only the guest features.
+     *
+     * @param view
+     */
     public void register(View view) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("Users", users);
@@ -158,6 +190,11 @@ public class MainActivity<color> extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * The dynamic selectState function allows the guest/member user to select/deselect USA states which are further used for the indicator stage.
+     *
+     * @param view
+     */
     public void selectState(View view) {
         Button b = (Button)view;
         if(activeUser==null){//If no User is logged in
@@ -200,6 +237,13 @@ public class MainActivity<color> extends AppCompatActivity {
         }
     }
 
+    /**
+     * The indicators function takes the guest/member user to the next state, where the user may select from a range of indicators in order to see the data.
+     *
+     * The previously selected states are passed in a bundle such that the application may keep track of what states the user is interested in.
+     *
+     * @param view
+     */
     public void indicators(View view) {
         if(states.isEmpty()) {//Make sure at least one state is selected
             AlertDialog.Builder noStates = new AlertDialog.Builder(view.getContext());
@@ -269,6 +313,11 @@ public class MainActivity<color> extends AppCompatActivity {
     }
 
 
+    /**
+     * The logout function allows a logged in user to logout, and is only accessible to currently logged in users.
+     *
+     * @param view
+     */
     public void logout(View view) {
         if(activeUser != null) {
             Toast.makeText(this, "User: " + activeUser.username + " successfully logged out!", Toast.LENGTH_LONG).show();
@@ -289,6 +338,13 @@ public class MainActivity<color> extends AppCompatActivity {
         }
     }
 
+    /**
+     * The login function allows the user to login with a previously registered account. The function requires two String arguments (in the alert window).
+     *
+     * The login function is only successful if the entered login/password corresponds to some user in the database of users. If not, the function throws an error alert to the user.
+     *
+     * @param view
+     */
     public void login(View view) {
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         try {
@@ -354,6 +410,11 @@ public class MainActivity<color> extends AppCompatActivity {
         builder.show().getButton(AlertDialog.BUTTON_NEGATIVE).requestFocus();
     }
 
+    /**
+     * The account function allows a logged in user to access information related to their account, which allows them to perform a multitude of functions related to their account.
+     *
+     * @param view
+     */
     public void account(View view) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("User", activeUser);

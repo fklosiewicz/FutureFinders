@@ -15,6 +15,19 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+
+/**
+ * This class is the registration activity class.
+ *
+ * The class is mainly responsible for registering a user on the application database.
+ *
+ * @author Filip Klosiewicz
+ * @author Sofia Ozol
+ * @author Max Pandolpho
+ * @author Samantha Cheng
+ * @author Zining Ou
+ */
+
 public class RegistrationActivity<color> extends AppCompatActivity {
 
     EditText textUsername;
@@ -33,6 +46,13 @@ public class RegistrationActivity<color> extends AppCompatActivity {
         users = (ArrayList<User>)bundle.getSerializable("Users");
     }
 
+    /**
+     * The create user function will take the inputs from the EditText fields and attempt to create a user.
+     *
+     * If a user exists, an alert will be thrown that such a user exits. If not, a success alert will display.
+     *
+     * @param view
+     */
     public void createUser(View view) {
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         String username = textUsername.getText().toString();

@@ -12,6 +12,21 @@ import android.widget.TextView;
 
 import com.example.pff.design.User;
 
+/**
+ * This class is the explanation activity controller class.
+ *
+ * As previously mentioned, the class allows a member user to get a better insight of what each of the indicators signify.
+ * This feature is very helpful for newcomers to the application who might not know some of the indicators signify.
+ * Along with the tips, the source of the information is also shown to the user.
+ *
+ *
+ * @author Filip Klosiewicz
+ * @author Sofia Ozol
+ * @author Max Pandolpho
+ * @author Samantha Cheng
+ * @author Zining Ou
+ */
+
 public class ExplanationActivity<color> extends Activity {
 
     public User activeUser;//so that the user can remain logged in when going back
@@ -19,6 +34,12 @@ public class ExplanationActivity<color> extends Activity {
     private TextView explanation_text;
     private Button explanation_close;
 
+    /**
+     * The onCreate will prompt the display window from the previously selected question, which the
+     * user will be able to see and scroll through in order to inform themselves on a certain indicator.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
