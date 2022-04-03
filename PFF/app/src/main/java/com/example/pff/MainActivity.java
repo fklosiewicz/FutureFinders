@@ -322,6 +322,7 @@ public class MainActivity<color> extends AppCompatActivity {
 
         builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+                indicators.clear();//clear selections when cancel logging in
                 dialog.cancel();
             }
         });
@@ -337,6 +338,7 @@ public class MainActivity<color> extends AppCompatActivity {
                         findViewById(R.id.Account).setVisibility(View.VISIBLE);
                         findViewById(R.id.Logout).setVisibility(View.VISIBLE);
                         success[0] = true;
+                        indicators.clear();//clear selections when logging in
                         return;
                     }
                 }
@@ -344,6 +346,7 @@ public class MainActivity<color> extends AppCompatActivity {
                     AlertDialog.Builder no_delete = new AlertDialog.Builder(view.getContext());
                     no_delete.setMessage("This user does not exist.").setPositiveButton("Okay", null);
                     no_delete.show();
+                    indicators.clear();//clear selections when not logging in successfully
                     return;
                 }
             }

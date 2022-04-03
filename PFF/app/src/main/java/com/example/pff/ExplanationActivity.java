@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pff.design.User;
@@ -15,6 +17,7 @@ public class ExplanationActivity<color> extends Activity {
     public User activeUser;//so that the user can remain logged in when going back
     public int question;
     private TextView explanation_text;
+    private Button explanation_close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class ExplanationActivity<color> extends Activity {
 
         setContentView(R.layout.explanation);
         explanation_text = (TextView) findViewById(R.id.explanation_text);
+        explanation_close = (Button) findViewById(R.id.explanation_close);
 
         switch (question){
             case 1:
@@ -44,6 +48,13 @@ public class ExplanationActivity<color> extends Activity {
                 break;
         }
 //        setContentView(R.layout.explanation);
+
+        explanation_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);

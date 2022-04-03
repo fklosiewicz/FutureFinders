@@ -20,11 +20,65 @@
     <string name="see_results">See Results</string>
     <string name="login_reminder">You haven\'t logged in. Please login to enjoy selecting your own indicators.</string>
     <!-- Need to update each specific explanation-->
-    <string name="explanation1">Explanation 1</string>
-    <string name="explanation2">Explanation 2</string>
-    <string name="explanation3">Explanation 3</string>
-    <string name="explanation4">Explanation 4</string>
-    <string name="explanation5">Explanation 5</string>
+    <string name="explanation1">
+        By selecting Annual Median Wage, you will see the annual median income of Computer Programmers
+        of your selected states. \n
+        The source of data is from U.S. Bureau of Labor Statistics (SOC code 151251). \n \n
+        By selecting Healthcare Ranking, you will see the overall ranking of the Best Health Care Systems of your selected states.
+        This ranking evaluates health care systems from 3 aspects: \n
+        (1) Cost;
+        (2) Access;
+        and (3) Outcomes.\n
+        The source of data is from Wallethub. \n \n
+    </string>
+    <string name="explanation2">
+        By selecting Happiness Ranking, you will see the overall ranking of the Happiest States
+        of your selected states in the U.S.
+        This ranking evaluates happiness from 3 aspects: \n
+        (1) Emotion and Physical Well-Being;
+        (2) Work Environment;
+        and (3) Community and Environment.
+        The source of data is from Wallethub. \n \n
+        By selecting Air and Water Quality, you will see the Best States for Natural Environment Ranking
+        of your selected states.
+        This ranking evaluates the natural environment from 2 aspects: \n
+        (1) The number of days with an air quality index above a healthy threshold;
+        and (2) the number of violation points against drinking water systems in each state.\n
+        The source of data is from US News. \n \n
+    </string>
+    <string name="explanation3">
+        By selecting State Income Tax Rate, you will see the State Individual Income Tax Rates
+        for 2022 of your selected states. \n
+        The source of data is from Tax Foundation. \n \n
+        By selecting Education Rankings, you will see the Best States for Education Rankings
+        of your selected states.
+        This ranking evaluates the education from 2 aspects: \n
+        (1) The higher education ranking, which tracks educational attainment, graduation rates,
+        college debt and tuition costs;
+        and (2) Pre-K - 12 ranking, which measures enrollment in pre-K, standardized test scores
+        and the public high school graduation rate.\n
+        The source of data is from US News. \n \n
+    </string>
+    <string name="explanation4">
+        By selecting Safety Ranking, you will see the Safest State Rankings
+        of your selected states. \n
+        The source of data is from XXX. \n \n
+        By selecting Cost of Living Index, you will see the Cost of Living Index by State in 2022
+        of your selected states.
+        It is defined as the amount of money needed to sustain a certain standard of living
+        by affording basic needs such as housing, food, healthcare, and more.
+        The cost of living is often used to compare how expensive it is to live in one location
+        compared to another and is also used as a big factor for people to determine where
+        they want to be located in addition to cultural attractions, the job market, and other factors. \n
+        The source of data is from World Population Review and Statista. \n \n
+    </string>
+    <string name="explanation5">
+        By selecting Entertainment, Recreation and Nightlife Ranking, you will see the Funniest State Rankings
+        of your selected states. \n
+        The source of data is from Wallethub. \n \n
+        By selecting Average House Cost, you will see the how much the Average House Costs in your selected states.\n
+        The source of data is from Reader\'s Digest. \n \n
+    </string>
 
 
 </resources>
