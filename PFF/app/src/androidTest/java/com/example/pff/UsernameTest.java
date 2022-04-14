@@ -121,9 +121,9 @@ public class UsernameTest {
 
         // login
         onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("q"));
+        onView(withHint("User Name")).perform(typeText("userTest"));
         pressBack();
-        onView(withHint("Password")).perform(typeText("q"));
+        onView(withHint("Password")).perform(typeText("passTest"));
         pressBack();
         onView(withText("Login")).perform(click());
         onView(withText("Successful Login!")).check(matches(isDisplayed()));
