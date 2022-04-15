@@ -6,6 +6,7 @@ import com.example.pff.design.User;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ public class RegistrationActivity<color> extends AppCompatActivity {
         setContentView(R.layout.registration);
         textUsername = (EditText) findViewById(R.id.textUsername);
         textPassword = (EditText) findViewById(R.id.textPassword);
+        textPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         Bundle bundle = getIntent().getExtras();
         users = (ArrayList<User>)bundle.getSerializable("Users");
     }
