@@ -219,7 +219,7 @@ public class MainActivity<color> extends AppCompatActivity {
         }
         else{//If User is logged in
             if(!states.contains(b.getId())) {
-                if(!(states.size()<CAP_MEMBER)){//If the cap is reached, extort
+                if(!(states.size()<CAP_MEMBER)){//If the cap is reached, show limit message
                     AlertDialog.Builder cap_reached = new AlertDialog.Builder(this);
                     cap_reached.setMessage("Maximum " + CAP_MEMBER + " states for members.").setPositiveButton("Okay", null);
                     cap_reached.show();

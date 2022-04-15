@@ -71,6 +71,10 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.indicators);
 
+        if(savedInstanceState==null){
+            return;
+        }
+
         states = getIntent().getExtras().getStringArrayList("States");
         indicators = getIntent().getExtras().getIntegerArrayList("Indicators");
         activeUser = (User)getIntent().getExtras().getSerializable("activeUser");
