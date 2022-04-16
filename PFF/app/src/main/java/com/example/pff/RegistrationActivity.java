@@ -39,6 +39,8 @@ public class RegistrationActivity<color> extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final long startTime = System.currentTimeMillis();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration);
         textUsername = (EditText) findViewById(R.id.textUsername);
@@ -46,6 +48,9 @@ public class RegistrationActivity<color> extends AppCompatActivity {
         textPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         Bundle bundle = getIntent().getExtras();
         users = (ArrayList<User>)bundle.getSerializable("Users");
+
+        final long endTime = System.currentTimeMillis();
+        System.out.println("TOTAL EXECUTION TIME: " + (endTime - startTime));
     }
 
     /**
@@ -60,6 +65,7 @@ public class RegistrationActivity<color> extends AppCompatActivity {
         String username = textUsername.getText().toString();
         String password = textPassword.getText().toString();
         User newUser = new User(username, password);
+        final long startTime = System.currentTimeMillis();
         if (username.equals("") || password.equals("")) {
             AlertDialog.Builder no_delete = new AlertDialog.Builder(this);
             no_delete.setMessage("Cannot create an empty user.").setPositiveButton("Okay", null);
@@ -99,5 +105,7 @@ public class RegistrationActivity<color> extends AppCompatActivity {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+        final long endTime = System.currentTimeMillis();
+        System.out.println("TOTAL EXECUTION TIME: " + (endTime - startTime));
     }
 }

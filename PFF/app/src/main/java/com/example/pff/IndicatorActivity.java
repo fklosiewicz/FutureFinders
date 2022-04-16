@@ -68,12 +68,13 @@ public class IndicatorActivity<color> extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final long startTime = System.currentTimeMillis();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.indicators);
 
-        if(savedInstanceState==null){
-            return;
-        }
+//        if(savedInstanceState==null){
+//            return;
+//        }
 
         states = getIntent().getExtras().getStringArrayList("States");
         indicators = getIntent().getExtras().getIntegerArrayList("Indicators");
@@ -113,6 +114,9 @@ public class IndicatorActivity<color> extends AppCompatActivity {
             question=5;
             OpenExplanations();
         });
+
+        final long endTime = System.currentTimeMillis();
+        System.out.println("TOTAL EXECUTION TIME: " + (endTime - startTime));
     }
 
     /**
@@ -122,6 +126,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
      */
     // for later: add cap to number of indicators that can be added to list based on if logged in or not
     public void checked(View view) {
+        final long startTime = System.currentTimeMillis();
         CheckBox c = (CheckBox)view;
         if(!indicators.contains(c.getId())) {
             if(!(indicators.size()<IND_MEMBER)){
@@ -139,6 +144,8 @@ public class IndicatorActivity<color> extends AppCompatActivity {
             indicators.remove((Integer)c.getId());
             System.out.println(indicators);
         }
+        final long endTime = System.currentTimeMillis();
+        System.out.println("TOTAL EXECUTION TIME: " + (endTime - startTime));
     }
 
     /**

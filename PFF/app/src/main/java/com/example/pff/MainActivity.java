@@ -45,6 +45,7 @@ import java.util.Map;
 
 public class MainActivity<color> extends AppCompatActivity {
 
+
     Button Register;
     public ArrayList<User> users;//List of Users
     public ArrayList<Integer> states;//List of selected states
@@ -111,6 +112,8 @@ public class MainActivity<color> extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        final long startTime = System.currentTimeMillis();
+
         activeUser = null;//Start main with no active user
         String p = this.getApplicationInfo().dataDir + "/appdata.dat";
         super.onCreate(savedInstanceState);
@@ -174,6 +177,9 @@ public class MainActivity<color> extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+        final long endTime = System.currentTimeMillis();
+        System.out.println("TOTAL EXECUTION TIME OF ACTION: " + (endTime - startTime));
 
     }
 

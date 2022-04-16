@@ -262,6 +262,7 @@ public class ResultsActivity<color> extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final long startTime = System.currentTimeMillis();
         super.onCreate(savedInstanceState);
 
         states = getIntent().getExtras().getIntegerArrayList("States");
@@ -495,7 +496,8 @@ public class ResultsActivity<color> extends AppCompatActivity {
                 exception.printStackTrace();
             }
         }
-
+        final long endTime = System.currentTimeMillis();
+        System.out.println("TOTAL EXECUTION TIME: " + (endTime - startTime));
     }
 
     /**
