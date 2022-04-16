@@ -71,48 +71,6 @@ public class UsernameTest {
     }
 
     @Test
-    public void testChangePassword() {
-        ActivityScenario<MainActivity> activityScenario = ActivityScenario.launch(MainActivity.class);
-
-        // login
-        onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("userTest"));
-        pressBack();
-        onView(withHint("Password")).perform(typeText("passTest"));
-        pressBack();
-        onView(withText("Login")).perform(click());
-        onView(withText("Successful Login!")).check(matches(isDisplayed()));
-        onView(withText("Okay")).perform(click());
-
-        // go to account page
-        onView(withId(R.id.Account)).perform(click());
-        onView(withId(R.id.textPassword2)).perform(typeText("newPass"));
-        pressBack();
-        onView(withId(R.id.update)).perform(click());
-        onView(withId(R.id.Logout)).perform(click());
-
-        // check that old login info no longer works
-        onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("userTest"));
-        pressBack();
-        onView(withHint("Password")).perform(typeText("passTest"));
-        pressBack();
-        onView(withText("Login")).perform(click());
-        onView(withText("This user does not exist.")).check(matches(isDisplayed()));
-        onView(withText("Okay")).perform(click());
-
-        // check that new login info does work
-        onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("userTest"));
-        pressBack();
-        onView(withHint("Password")).perform(typeText("newPass"));
-        pressBack();
-        onView(withText("Login")).perform(click());
-        onView(withText("Successful Login!")).check(matches(isDisplayed()));
-        onView(withText("Okay")).perform(click());
-    }
-
-    @Test
     public void testOldSearches() {
         ActivityScenario<MainActivity> activityScenario = ActivityScenario.launch(MainActivity.class);
 
@@ -160,6 +118,48 @@ public class UsernameTest {
         onView(withId(R.id.textView3)).check(matches(withText("Happiness")));
         onView(withId(R.id.textView6)).check(matches(withText("NJ")));
         onView(withId(R.id.textView11)).check(matches(withText("NY")));
+    }
+
+    @Test
+    public void testChangePassword() {
+        ActivityScenario<MainActivity> activityScenario = ActivityScenario.launch(MainActivity.class);
+
+        // login
+        onView(withId(R.id.Login)).perform(click());
+        onView(withHint("User Name")).perform(typeText("userTest"));
+        pressBack();
+        onView(withHint("Password")).perform(typeText("passTest"));
+        pressBack();
+        onView(withText("Login")).perform(click());
+        onView(withText("Successful Login!")).check(matches(isDisplayed()));
+        onView(withText("Okay")).perform(click());
+
+        // go to account page
+        onView(withId(R.id.Account)).perform(click());
+        onView(withId(R.id.textPassword2)).perform(typeText("newPass"));
+        pressBack();
+        onView(withId(R.id.update)).perform(click());
+        onView(withId(R.id.Logout)).perform(click());
+
+        // check that old login info no longer works
+        onView(withId(R.id.Login)).perform(click());
+        onView(withHint("User Name")).perform(typeText("userTest"));
+        pressBack();
+        onView(withHint("Password")).perform(typeText("passTest"));
+        pressBack();
+        onView(withText("Login")).perform(click());
+        onView(withText("This user does not exist.")).check(matches(isDisplayed()));
+        onView(withText("Okay")).perform(click());
+
+        // check that new login info does work
+        onView(withId(R.id.Login)).perform(click());
+        onView(withHint("User Name")).perform(typeText("userTest"));
+        pressBack();
+        onView(withHint("Password")).perform(typeText("newPass"));
+        pressBack();
+        onView(withText("Login")).perform(click());
+        onView(withText("Successful Login!")).check(matches(isDisplayed()));
+        onView(withText("Okay")).perform(click());
     }
 
 }
