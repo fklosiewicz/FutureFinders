@@ -3,15 +3,12 @@ package com.example.pff;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,11 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.UnknownHostException;
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -60,48 +53,6 @@ public class MainActivity<color> extends AppCompatActivity {
     private static final String USER = "finder";
     private static final String PASS = "1234abcd";
 
-    /**
-     * This sub-class creates an asynchronous thread that connects the application to the MariaDB database on the virtual machine.
-     *
-     * --- Primarily used to test connection. ---
-     */
-    @SuppressLint("StaticFieldLeak")
-    public class InfoAsyncTask extends AsyncTask<String, Void, Map<String, String>> {
-        protected Map<String, String> doInBackground(String... strings) {
-            Map<String, String> info = new HashMap<>();
-            System.out.println("Connecting to the database...");
-            try (Connection connection = DriverManager.getConnection(URL, USER, PASS)) {
-                System.out.println("Connection valid: " + connection.isValid(5));
-
-                String sql = "SELECT Wage FROM Indicators WHERE StateABBR = '" + strings[0] + "';";
-                PreparedStatement statement = connection.prepareStatement(sql);
-                ResultSet resultSet = statement.executeQuery();
-
-                if(resultSet.next()) {
-                    info.put("Wage", resultSet.getString("Wage"));
-                }
-            } catch (Exception e) {
-                Log.e("InfoAsyncTask", "Error reading information", e);
-            }
-            return info;
-        }
-
-        @Override
-        protected void onPostExecute(Map<String, String> result) {
-            if (!result.isEmpty()) {
-            }
-        }
-    }
-
-    /**
-     * Temporary function that tests the connection to the VM.
-     *
-     * @param view
-     * @throws InterruptedException
-     */
-    public void establishConnection(View view) throws InterruptedException {
-        new InfoAsyncTask().execute("CA");
-    }
 
     /**
      * When the application begins, onCreate, all pre-registered users will be loaded into the application.
@@ -264,18 +215,13 @@ public class MainActivity<color> extends AppCompatActivity {
         if(activeUser != null){
             bundle.putSerializable("activeUser", activeUser);
         }
-//        Intent intent = new Intent(this, IndicatorActivity.class);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
-//        bundle.putStringArrayList("States", states);
-//        bundle.putStringArrayList("Indicators", indicators);
 
         if (activeUser != null){
             Intent intent = new Intent(this, IndicatorActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
         }
-        else if (activeUser == null){
+        else {
             continueBuilder = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialog_AppCompat);
             View continue_popup = getLayoutInflater().inflate(R.layout.continue_popup,
                     (ConstraintLayout)findViewById(R.id.Dialog_Container));
@@ -318,7 +264,6 @@ public class MainActivity<color> extends AppCompatActivity {
         }
     }
 
-
     /**
      * The logout function allows a logged in user to logout, and is only accessible to currently logged in users.
      *
@@ -336,11 +281,9 @@ public class MainActivity<color> extends AppCompatActivity {
             }
             states.clear();//clear selections when logging out
             indicators.clear();//clear selections when logging out
-            return;
         }
-        else if(activeUser == null) {
+        else {
             Toast.makeText(this, "Not currently logged in.", Toast.LENGTH_LONG).show();
-            return;
         }
     }
 
@@ -404,7 +347,7 @@ public class MainActivity<color> extends AppCompatActivity {
                         return;
                     }
                 }
-                if(success[0] == false) {
+                if(!success[0]) {
                     AlertDialog.Builder no_delete = new AlertDialog.Builder(view.getContext());
                     no_delete.setMessage("This user does not exist.").setPositiveButton("Okay", null);
                     no_delete.show();
