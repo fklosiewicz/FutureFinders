@@ -517,7 +517,8 @@ public class ResultsActivity<color> extends AppCompatActivity {
             return "Safety";
         }
         else if(buttonName.equals("Entertainment, Recreation, and Nightlife Ranking")){
-            return "Fun";
+            return
+                    "Fun";
         }
         else if(buttonName.equals("Healthcare Ranking")){
             return "Health";
