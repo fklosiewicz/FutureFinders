@@ -38,7 +38,6 @@ public class ExplanationActivity<color> extends Activity {
      * The onCreate will prompt the display window from the previously selected question, which the
      * user will be able to see and scroll through in order to inform themselves on a certain indicator.
      *
-     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 public class IndicatorActivity<color> extends AppCompatActivity {
 
-    public ArrayList<String> states;
+    public ArrayList<Integer> states;
     public ArrayList<Integer> indicators;
     public User activeUser;//so that the user can remain logged in when going back
     public final int IND_MEMBER = 5; // The cap number of indicators.
@@ -72,11 +72,11 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.indicators);
 
-        if(getIntent().getExtras()==null){
-            return;
-        }
+//        if(getIntent().getExtras()==null){
+//            return;
+//        }
 
-        states = getIntent().getExtras().getStringArrayList("States");
+        states = getIntent().getExtras().getIntegerArrayList("States");
         indicators = getIntent().getExtras().getIntegerArrayList("Indicators");
         activeUser = (User)getIntent().getExtras().getSerializable("activeUser");
         for(int id : indicators) {
@@ -163,7 +163,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
         }
         else {
             Bundle bundle = new Bundle();
-            bundle.putStringArrayList("States", states);
+            bundle.putIntegerArrayList("States", states);
             bundle.putIntegerArrayList("Indicators", indicators);
             bundle.putSerializable("activeUser", activeUser);
             Intent intent = new Intent(IndicatorActivity.this, ResultsActivity.class);
@@ -180,7 +180,7 @@ public class IndicatorActivity<color> extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList("States", states);
+        bundle.putIntegerArrayList("States", states);
         bundle.putIntegerArrayList("Indicators", indicators);
         bundle.putSerializable("activeUser", activeUser);
         Intent intent = new Intent(this, MainActivity.class);
@@ -197,8 +197,8 @@ public class IndicatorActivity<color> extends AppCompatActivity {
      */
     private void OpenExplanations(){
         Bundle bundle = new Bundle();
-//        bundle.putStringArrayList("States", states);
-//        bundle.putIntegerArrayList("Indicators", indicators);
+        bundle.putIntegerArrayList("States", states);
+        bundle.putIntegerArrayList("Indicators", indicators);
         bundle.putSerializable("activeUser", activeUser);
         bundle.putInt("question",question);
         Intent intent = new Intent(IndicatorActivity.this, ExplanationActivity.class);
