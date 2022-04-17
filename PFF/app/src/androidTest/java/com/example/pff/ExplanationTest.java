@@ -111,6 +111,10 @@ public class ExplanationTest {
 
     }
 
+    /** A method designed to generate random String,
+     * specifically used to generate random usernames and passwords in explanation testing.
+     * @return String randomString
+     */
     public static String randomStringGenerator(){
         // create a string of all characters
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
