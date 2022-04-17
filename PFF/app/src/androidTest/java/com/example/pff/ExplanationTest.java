@@ -48,27 +48,37 @@ import com.example.pff.design.User;
 
 import java.util.ArrayList;
 import android.content.Context;
-
+import java.util.Random;
 
 public class ExplanationTest {
     @Test
     public void explanationTest(){
         ActivityScenario<MainActivity> activityScenario = ActivityScenario.launch(MainActivity.class);
-//        onView(withId(R.id.Register)).perform(click());
-//        onView(withId(R.id.textUsername)).perform(typeText("a1b2c3"));
-//        pressBack();
-//        onView(withId(R.id.textPassword)).perform(typeText("password"));
-//        pressBack();
-//        onView(withId(R.id.Create)).perform(click());
-//        pressBack();
+        onView(withId(R.id.Register)).perform(click());
+        String username = randomStringGenerator();
+        onView(withId(R.id.textUsername)).perform(typeText(username));
+        pressBack();
+        String password = randomStringGenerator();
+        onView(withId(R.id.textPassword)).perform(typeText(password));
+        pressBack();
+        onView(withId(R.id.Create)).perform(click());
+        pressBack();
 
         onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("1234567"));
+        onView(withHint("User Name")).perform(typeText(username));
         pressBack();
-        onView(withHint("Password")).perform(typeText("1234567"));
+        onView(withHint("Password")).perform(typeText(password));
         pressBack();
         onView(withText("Login")).perform(click());
         onView(withText("Okay")).perform(click());
+
+//        onView(withId(R.id.Login)).perform(click());
+//        onView(withHint("User Name")).perform(typeText("1234567"));
+//        pressBack();
+//        onView(withHint("Password")).perform(typeText("1234567"));
+//        pressBack();
+//        onView(withText("Login")).perform(click());
+//        onView(withText("Okay")).perform(click());
 
         onView(withId(R.id.VA)).perform(click());
 
@@ -99,6 +109,36 @@ public class ExplanationTest {
         onView(withId(R.id.explanation_text)).check(matches(withText(explanation5)));
         onView(withId(R.id.explanation_close)).perform(click());
 
+    }
+
+    public static String randomStringGenerator(){
+        // create a string of all characters
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        // create random string builder
+        StringBuilder sb = new StringBuilder();
+
+        // create an object of Random class
+        Random random = new Random();
+
+        // specify length of random string
+        int length = 10;
+
+        for(int i = 0; i < length; i++) {
+
+            // generate random index number
+            int index = random.nextInt(alphabet.length());
+
+            // get character specified by index
+            // from the string
+            char randomChar = alphabet.charAt(index);
+
+            // append the character to string builder
+            sb.append(randomChar);
+        }
+
+        String randomString = sb.toString();
+        return randomString;
     }
 
 
