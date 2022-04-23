@@ -9,6 +9,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.pff.ExplanationTest.randomStringGenerator;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
@@ -27,8 +28,9 @@ public class UsernameTest {
         ActivityScenario<MainActivity> activityScenario = ActivityScenario.launch(MainActivity.class);
 
         // run register
+        String username = randomStringGenerator();
         onView(withId(R.id.Register)).perform(click());
-        onView(withId(R.id.textUsername)).perform(typeText("userTest"));
+        onView(withId(R.id.textUsername)).perform(typeText(username));
         pressBack();
         onView(withId(R.id.textPassword)).perform(typeText("passTest"));
         pressBack();
@@ -37,7 +39,7 @@ public class UsernameTest {
 
         // test that login checks username
         onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("nonUser"));
+        onView(withHint("User Name")).perform(typeText("not" + username));
         pressBack();
         onView(withHint("Password")).perform(typeText("passTest"));
         pressBack();
@@ -47,7 +49,7 @@ public class UsernameTest {
 
         // test that login checks password
         onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("userTest"));
+        onView(withHint("User Name")).perform(typeText(username));
         pressBack();
         onView(withHint("Password")).perform(typeText("wrongPass"));
         pressBack();
@@ -57,7 +59,7 @@ public class UsernameTest {
 
         // test that login successfully logs in a registered user
         onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("userTest"));
+        onView(withHint("User Name")).perform(typeText(username));
         pressBack();
         onView(withHint("Password")).perform(typeText("passTest"));
         pressBack();
@@ -77,9 +79,19 @@ public class UsernameTest {
         // show that past search results are not available to guests
         onView(withId(R.id.Account)).check(matches(not(isDisplayed())));
 
+        // run register
+        String username = randomStringGenerator();
+        onView(withId(R.id.Register)).perform(click());
+        onView(withId(R.id.textUsername)).perform(typeText(username));
+        pressBack();
+        onView(withId(R.id.textPassword)).perform(typeText("passTest"));
+        pressBack();
+        onView(withId(R.id.Create)).perform(click());
+        pressBack();
+
         // login
         onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("userTest"));
+        onView(withHint("User Name")).perform(typeText(username));
         pressBack();
         onView(withHint("Password")).perform(typeText("passTest"));
         pressBack();
@@ -124,9 +136,19 @@ public class UsernameTest {
     public void testChangePassword() {
         ActivityScenario<MainActivity> activityScenario = ActivityScenario.launch(MainActivity.class);
 
+        // run register
+        String username = randomStringGenerator();
+        onView(withId(R.id.Register)).perform(click());
+        onView(withId(R.id.textUsername)).perform(typeText(username));
+        pressBack();
+        onView(withId(R.id.textPassword)).perform(typeText("passTest"));
+        pressBack();
+        onView(withId(R.id.Create)).perform(click());
+        pressBack();
+
         // login
         onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("userTest"));
+        onView(withHint("User Name")).perform(typeText(username));
         pressBack();
         onView(withHint("Password")).perform(typeText("passTest"));
         pressBack();
@@ -143,7 +165,7 @@ public class UsernameTest {
 
         // check that old login info no longer works
         onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("userTest"));
+        onView(withHint("User Name")).perform(typeText(username));
         pressBack();
         onView(withHint("Password")).perform(typeText("passTest"));
         pressBack();
@@ -153,7 +175,7 @@ public class UsernameTest {
 
         // check that new login info does work
         onView(withId(R.id.Login)).perform(click());
-        onView(withHint("User Name")).perform(typeText("userTest"));
+        onView(withHint("User Name")).perform(typeText(username));
         pressBack();
         onView(withHint("Password")).perform(typeText("newPass"));
         pressBack();
